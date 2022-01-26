@@ -1,0 +1,6 @@
+C:\Users\hauke\OneDrive - weatherlights.com\Documents\Developing\wcommsixrun\wcommsixwrap\wcommsixwrap\bin\x64\Debug\wcommsixwrap.exe.config
+C:\Users\hauke\OneDrive - weatherlights.com\Documents\Developing\wcommsixrun\wcommsixwrap\wcommsixwrap\bin\x64\Debug\wcommsixwrap.exe
+C:\Users\hauke\OneDrive - weatherlights.com\Documents\Developing\wcommsixrun\wcommsixwrap\wcommsixwrap\bin\x64\Debug\wcommsixwrap.pdb
+C:\Users\hauke\OneDrive - weatherlights.com\Documents\Developing\wcommsixrun\wcommsixwrap\wcommsixwrap\obj\x64\Debug\wcommsixwrap.csprojAssemblyReference.cache
+C:\Users\hauke\OneDrive - weatherlights.com\Documents\Developing\wcommsixrun\wcommsixwrap\wcommsixwrap\obj\x64\Debug\wcommsixwrap.exe
+C:\Users\hauke\OneDrive - weatherlights.com\Documents\Developing\wcommsixrun\wcommsixwrap\wcommsixwrap\obj\x64\Debug\wcommsixwrap.pdb

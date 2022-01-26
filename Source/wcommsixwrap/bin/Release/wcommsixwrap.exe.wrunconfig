@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <Process>
+    <ArgsSelector>1BY1</ArgsSelector>
+    <Filename>[APPDIR]\1by1.exe</Filename>
+    <WorkingDirectory>[APPDIR]</WorkingDirectory>
+    <Arguments>test [ARGS]</Arguments>
+  </Process>
+  <RegistryEntry>
+    <Key>SOFTWARE\Allavsoft\Video Downloader Converter\RegInfo</Key>
+    <Attribute>UserName</Attribute>
+    <Value>weatherlights.com</Value>
+    <Type>String</Type>
+    <Node>USER</Node>
+  </RegistryEntry>
+  <RegistryEntry>
+    <Key>SOFTWARE\Allavsoft\Video Downloader Converter\RegInfo</Key>
+    <Attribute>RegCode</Attribute>
+    <Value>DC61-99B0-915C-817C-97DA-DE7B-5FA6-83A3</Value>
+    <Type>String</Type>
+    <Node>USER</Node>
+  </RegistryEntry>
+  <RegistryEntry>
+    <Key>SOFTWARE\Allavsoft\Video Downloader Converter\Setting</Key>
+    <Attribute>ENABLE_UPDATE</Attribute>
+    <Value>false</Value>
+    <Type>String</Type>
+    <Node>USER</Node>
+  </RegistryEntry>
+</config>

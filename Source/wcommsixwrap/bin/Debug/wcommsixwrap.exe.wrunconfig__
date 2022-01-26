@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <Service>
+    <Filename>powershell.exe</Filename>
+    <WorkingDirectory>[APPDIR]</WorkingDirectory>
+    <Arguments>-executionpolicy AllSigned -windowstyle hidden -file .\Service.ps1 [ARGS]</Arguments>
+  </Service>
+</config>

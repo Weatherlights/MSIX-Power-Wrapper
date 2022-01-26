@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <Process>
+    <Filename>[APPDIR]\zsnesw.exe</Filename>
+    <WorkingDirectory>[APPDATA]\ZSNES</WorkingDirectory>
+    <Arguments></Arguments>
+  </Process>
+  <virtualfile>
+    <file>[APPDIR]\sample.txt</file>
+    <target>[APPDATA]\ZSNES\test.txt</target>
+  </virtualfile>
+</config>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- weatherlights.com MSIX Wrapper
+(c) 2020 by Hauke Goetze.
+You may use it freely in relation to this package and project. If you need help with it just contact hauke@hauke.us
+-->
+<!-- This is used to bootstrap the obs32.exe. It copies a config file to to AppData to disable automatic updates
+-->
+<config>
+  <Process>
+    <Filename>[APPDIR]\qotr.exe</Filename>
+    <WorkingDirectory>[APPDIR]</WorkingDirectory>
+    <Arguments>[ARGS]</Arguments>
+  </Process>
+  <RegistryEntry>
+    <Key>Software\otr\qotr\decode</Key>
+    <Attribute>logfiledir</Attribute>
+    <Value>[RETRIVEFROMREGISTRY|HKLM|SOFTWARE\Policies\Test|Stuff1|[SPECIALFOLDER|MYDOCUMENTS]\Test]</Value>
+    <Type>String</Type>
+    <Node>USER</Node>
+  </RegistryEntry>
+      <RegistryEntry>
+    <Key>Software\otr\qotr\decode</Key>
+    <Attribute>cache</Attribute>
+    <Value>[LOCALAPPDATA]\qotr\Cache</Value>
+    <Type>String</Type>
+    <Node>USER</Node>
+  </RegistryEntry>
+</config>
