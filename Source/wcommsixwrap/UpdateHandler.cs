@@ -21,6 +21,7 @@ namespace wcommsixwrap
         public string message;
         public string caption;
         public string mode;
+        public bool mandatoryInstallationFailure = false;
         public bool hasMandatoryUpdates { get; set; }
         private IReadOnlyList<StorePackageUpdate> updates;
         LogWriter myLogWriter = null;
@@ -269,16 +270,15 @@ namespace wcommsixwrap
             // Start the silent installation of the packages. Because the packages have already
             // been downloaded in the previous method, the following line of code just installs
             // the downloaded packages.
+           
             IAsyncOperationWithProgress<StorePackageUpdateResult, StorePackageUpdateStatus> installOperation;
             if ( hasMandatoryUpdates )
-                installOperation = context.RequestDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
+                installOperation = context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
             else
                 installOperation = context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
             myLogWriter.LogWrite("Status: " + installOperation.Status.ToString());
-            //updateHandlerForm.ShowDialog();
-            Task formOperation = updateHandlerForm.ShowDialogAsync();
+            updateHandlerForm.ShowDialog();
 
-            updateHandlerForm.prgUpdateProgressBar.Value = 20;
             myLogWriter.LogWrite("Showing Update Dialog");
 
             
@@ -293,7 +293,7 @@ namespace wcommsixwrap
             myLogWriter.LogWrite("Closed Update dialog");
             //StorePackageUpdateResult downloadResult =
             //    await context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
-
+            bool success = true;
             switch (installResult.OverallState)
             {
                 // If the user cancelled the installation or you can't perform the installation  
@@ -301,20 +301,29 @@ namespace wcommsixwrap
                 // implemented in this example, you should implement it as needed for your own app.
                 case StorePackageUpdateState.Canceled:
                     myLogWriter.LogWrite("Update installation failed. Process has been canceled.",2);
+                    success = false;
                     installOnExit = true;
                     return;
                 case StorePackageUpdateState.ErrorLowBattery:
                     myLogWriter.LogWrite("Update installation failed. Batterylevel is low.",2);
+                    success = false;
                     installOnExit = true;
                     return;
                 case StorePackageUpdateState.OtherError:
                     myLogWriter.LogWrite("Update installation failed. An unknown error occured.", 3);
+                    success = false;
                     installOnExit = true;
                     return;
                 default:
                     myLogWriter.LogWrite("Update installation was successfull.");
                     break;
             }
+            if ( !success && hasMandatoryUpdates)
+            {
+                mandatoryInstallationFailure = true;
+            }
+
+           
         }
 
 

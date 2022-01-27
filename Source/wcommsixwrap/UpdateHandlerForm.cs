@@ -7,14 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Windows.Services.Store;
 
 namespace wcommsixwrap
 {
 
     public partial class UpdateHandlerForm : Form
     {
-        public IReadOnlyList<StorePackageUpdate> StorePackages = null;
         public UpdateHandlerForm()
         {
             InitializeComponent();
@@ -24,9 +22,9 @@ namespace wcommsixwrap
 
         private void UpdateHandlerForm_Load(object sender, EventArgs e)
         {
-            Rectangle workingArea = Screen.GetWorkingArea(this);
+            /*Rectangle workingArea = Screen.GetWorkingArea(this);
             this.Location = new Point(workingArea.Right - Size.Width,
-                                      workingArea.Bottom - Size.Height);
+                                      workingArea.Bottom - Size.Height);*/
             
         }
 

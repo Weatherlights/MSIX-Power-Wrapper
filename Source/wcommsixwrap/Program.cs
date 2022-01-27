@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using System.Xml;
 using Windows.ApplicationModel;
@@ -21,9 +22,9 @@ namespace wcommsixwrap
         [STAThread]
         static void Main(string[] args)
         {
-            
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+
+            System.Windows.Forms.Application.EnableVisualStyles();
+            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
             LogWriter myLogWriter = new LogWriter("Main");
             myLogWriter.LogWrite("WCOMMSIXWRAP started.");
@@ -110,8 +111,13 @@ namespace wcommsixwrap
 
             if (myUpdateHandler != null) {
                 myLogWriter.LogWrite("Executing myUpdateHandler.Execute();");
-
+                
                myUpdateHandler.Execute();
+                if (myUpdateHandler.mandatoryInstallationFailure)
+                {
+                    System.Windows.MessageBox.Show("Application can not be started since a mandatory update is missing.", "Mandatory update missing", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
 
             }
@@ -149,6 +155,7 @@ namespace wcommsixwrap
                 myCertificateInstall.Execute();
             }
 
+     
             foreach ( Runtime myRuntime in myRuntimes ) {
                 myLogWriter.LogWrite("Executing myRuntime.Execute();");
                 myRuntime.Execute();
