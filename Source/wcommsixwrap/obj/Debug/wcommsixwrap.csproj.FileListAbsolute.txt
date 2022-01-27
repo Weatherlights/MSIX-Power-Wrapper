@@ -47,3 +47,9 @@ C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixw
 C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\bin\Debug\wcommsixwrap.exe.config
 C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\bin\Debug\wcommsixwrap.exe
 C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\bin\Debug\wcommsixwrap.pdb
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\UpdateHandlerWindow.g.cs
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap_Content.g.cs
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap_MarkupCompile.cache
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap_MarkupCompile.lref
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\UpdateHandlerWindow.baml
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap.g.resources

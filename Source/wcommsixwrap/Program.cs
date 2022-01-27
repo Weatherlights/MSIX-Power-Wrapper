@@ -22,7 +22,6 @@ namespace wcommsixwrap
         [STAThread]
         static void Main(string[] args)
         {
-
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 

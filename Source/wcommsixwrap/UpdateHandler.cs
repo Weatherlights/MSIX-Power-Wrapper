@@ -28,6 +28,7 @@ namespace wcommsixwrap
 
         private bool installOnExit { get; set; }
         UpdateHandlerForm updateHandlerForm;
+        UpdateHandlerWindow updateHandlerWindow;
 
         public static string Element = "UpdateHandler";
 
@@ -38,6 +39,7 @@ namespace wcommsixwrap
 
             ci = CultureInfo.InstalledUICulture;
             updateHandlerForm = new UpdateHandlerForm();
+            updateHandlerWindow = new UpdateHandlerWindow();
         }
 
         public void processXml(XmlReader reader)
@@ -80,7 +82,8 @@ namespace wcommsixwrap
 
         public void Execute()
         {
-
+            
+           
             if (context != null)
             {
                 myLogWriter.LogWrite("Will now see if we need to install something since we are about to exit.");
@@ -100,6 +103,9 @@ namespace wcommsixwrap
 
         private void configureForm()
         {
+            updateHandlerWindow.lblHeading.Content = this.caption;
+            updateHandlerWindow.lblMessage.Content = this.message;
+            updateHandlerWindow.Title = this.caption;
             updateHandlerForm.lblHeading.Text = this.caption;
             updateHandlerForm.Text = this.caption;
             updateHandlerForm.lblHeading.Text = this.message;
@@ -267,29 +273,26 @@ namespace wcommsixwrap
 
         private async Task InstallUpdate(IReadOnlyList<StorePackageUpdate> storePackageUpdates)
         {
+            this.configureForm();
+            
             // Start the silent installation of the packages. Because the packages have already
             // been downloaded in the previous method, the following line of code just installs
             // the downloaded packages.
-           
+
             IAsyncOperationWithProgress<StorePackageUpdateResult, StorePackageUpdateStatus> installOperation;
             if ( hasMandatoryUpdates )
                 installOperation = context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
             else
                 installOperation = context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
             myLogWriter.LogWrite("Status: " + installOperation.Status.ToString());
-            updateHandlerForm.ShowDialog();
+            updateHandlerWindow.ShowDialog();
 
             myLogWriter.LogWrite("Showing Update Dialog");
-
-            
-            Progress<StorePackageUpdateStatus> progress = new Progress<StorePackageUpdateStatus>(
-            report => updateHandlerForm.prgUpdateProgressBar.Value = ((int)report.PackageDownloadProgress*100));
-
    
            installOperation.AsTask().Wait();
             
             StorePackageUpdateResult installResult = await installOperation.AsTask();
-            updateHandlerForm.Close();
+            updateHandlerWindow.Close();
             myLogWriter.LogWrite("Closed Update dialog");
             //StorePackageUpdateResult downloadResult =
             //    await context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
