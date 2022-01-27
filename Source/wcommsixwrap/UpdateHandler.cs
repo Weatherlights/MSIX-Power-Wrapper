@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Xml;
 using Windows.Foundation;
 using Windows.Services.Store;
@@ -12,6 +13,7 @@ using Windows.UI.Popups;
 
 namespace wcommsixwrap
 {
+
     internal class UpdateHandler
     {
         private CultureInfo ci;
@@ -77,6 +79,7 @@ namespace wcommsixwrap
 
         public void Execute()
         {
+
             if (context != null)
             {
                 myLogWriter.LogWrite("Will now see if we need to install something since we are about to exit.");
@@ -94,10 +97,19 @@ namespace wcommsixwrap
             myLogWriter.LogWrite("Exiting UpdateHandler.");
         }
 
+        private void configureForm()
+        {
+            updateHandlerForm.lblHeading.Text = this.caption;
+            updateHandlerForm.Text = this.caption;
+            updateHandlerForm.lblHeading.Text = this.message;
 
-            public async void InstallOnStart() {
+        }
+
+
+        public async void InstallOnStart() {
+
             //   Program.CreateDirectoryRecursively(getLink());
-
+            //formOperation.Wait();
             myLogWriter.LogWrite("Checking for updates");
             
             if (context == null)
@@ -109,13 +121,10 @@ namespace wcommsixwrap
             //MessageBox.Show("Searching for Updates", "Searching", MessageBoxButton.OK, MessageBoxImage.Information);
             try
             {
-                await Sleepy();
-                updates = await context.GetAppAndOptionalStorePackageUpdatesAsync();
-
-
-                myLogWriter.LogWrite("Finished search for updates.");
-                //MessageBox.Show("Update search finished.", "Searching", MessageBoxButton.OK, MessageBoxImage.Information);
-                //MessageBox.Show("Found: " + updates.Count + "Updates", "Searching", MessageBoxButton.OK, MessageBoxImage.Information);
+                IAsyncOperation<IReadOnlyList<StorePackageUpdate>> searchOperation = context.GetAppAndOptionalStorePackageUpdatesAsync();
+                searchOperation.AsTask().Wait();
+                updates = await searchOperation.AsTask();
+                
                 myLogWriter.LogWrite("Found " + updates.Count + " updates.");
                 if (updates.Count > 0)
                 {
@@ -160,19 +169,42 @@ namespace wcommsixwrap
 
                         if (hasMandatoryUpdates == false)
                         {
-                            myLogWriter.LogWrite("Begin downloading optional updates.");
-                            StorePackageUpdateResult downloadResult =
-                                await context.TrySilentDownloadStorePackageUpdatesAsync(updates);
-                            
-                            if (downloadResult.OverallState == StorePackageUpdateState.Completed)
+                            if (!context.CanSilentlyDownloadStorePackageUpdates)
                             {
-                                myLogWriter.LogWrite("Download has been finished successfully.");
-                                installOnExit = true;
-                                myLogWriter.LogWrite("Mark update to be installed when the application closes.");
-                            } else
-                            {
-                                myLogWriter.LogWrite("Download failed with status: " + downloadResult.OverallState.ToString(), 2);
+                                myLogWriter.LogWrite("Can not install updates silently at the moment.");
+                                return;
                             }
+
+                                myLogWriter.LogWrite("Begin downloading optional updates.");
+                                StorePackageUpdateResult downloadResult =
+                                    await context.TrySilentDownloadStorePackageUpdatesAsync(updates);
+
+                            switch (downloadResult.OverallState)
+                            {
+                                case StorePackageUpdateState.Completed:
+                                    myLogWriter.LogWrite("Download has been finished successfully.");
+                                    installOnExit = true;
+                                    myLogWriter.LogWrite("Mark update to be installed when the application closes.");
+                                    break;
+                                case StorePackageUpdateState.Canceled:
+                                    myLogWriter.LogWrite("Update canceled: Canceled by the user.", 2);
+                                    return;
+                                case StorePackageUpdateState.ErrorLowBattery:
+                                    myLogWriter.LogWrite("Update canceled: Battery level to low to download update.", 2);
+                                    return;
+                                case StorePackageUpdateState.ErrorWiFiRecommended:
+                                    myLogWriter.LogWrite("Update canceled: The user is recommended to use a wifi to update.", 2);
+                                    return;
+                                case StorePackageUpdateState.ErrorWiFiRequired:
+                                    myLogWriter.LogWrite("Update canceled: A wifi connection is required to perform the update.", 2);
+                                    return;
+                                case StorePackageUpdateState.OtherError:
+                                    myLogWriter.LogWrite("Update canceled: Unknown error.", 3);
+                                    return;
+                                default:
+                                    break;
+                            }
+                          
 
                         } else
                         {
@@ -219,7 +251,7 @@ namespace wcommsixwrap
 
         private async void InstallOnExit()
         {
-            await Sleepy();
+            
             if ( installOnExit != false )
             {
                 myLogWriter.LogWrite("Pending updates will now be installed.");
@@ -237,19 +269,28 @@ namespace wcommsixwrap
             // Start the silent installation of the packages. Because the packages have already
             // been downloaded in the previous method, the following line of code just installs
             // the downloaded packages.
-            IAsyncOperationWithProgress<StorePackageUpdateResult, StorePackageUpdateStatus> installOperation = context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
+            IAsyncOperationWithProgress<StorePackageUpdateResult, StorePackageUpdateStatus> installOperation;
+            if ( hasMandatoryUpdates )
+                installOperation = context.RequestDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
+            else
+                installOperation = context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
             myLogWriter.LogWrite("Status: " + installOperation.Status.ToString());
-            updateHandlerForm.ShowDialog();
-            myLogWriter.LogWrite("Showing Installation progress");
-            
-            Progress<StorePackageUpdateStatus> progress = new Progress<StorePackageUpdateStatus>(
-            report => updateHandlerForm.prgProgress.Value = ((int)report.PackageDownloadProgress));
+            //updateHandlerForm.ShowDialog();
+            Task formOperation = updateHandlerForm.ShowDialogAsync();
+
+            updateHandlerForm.prgUpdateProgressBar.Value = 20;
+            myLogWriter.LogWrite("Showing Update Dialog");
 
             
-            installOperation.AsTask(progress).Wait();
-            updateHandlerForm.Close();
-            myLogWriter.LogWrite("Closing Installation progress");
+            Progress<StorePackageUpdateStatus> progress = new Progress<StorePackageUpdateStatus>(
+            report => updateHandlerForm.prgUpdateProgressBar.Value = ((int)report.PackageDownloadProgress*100));
+
+   
+           installOperation.AsTask().Wait();
+            
             StorePackageUpdateResult installResult = await installOperation.AsTask();
+            updateHandlerForm.Close();
+            myLogWriter.LogWrite("Closed Update dialog");
             //StorePackageUpdateResult downloadResult =
             //    await context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
 

@@ -33,3 +33,13 @@ D:\wcomwrap3\wcommsixwrap\obj\Release\wcommsixwrap.csproj.CoreCompileInputs.cach
 D:\wcomwrap3\wcommsixwrap\obj\Release\wcommsixwrap.exe
 D:\wcomwrap3\wcommsixwrap\obj\Release\wcommsixwrap.pdb
 D:\wcomwrap3\wcommsixwrap\obj\Release\wcommsixwrap.UpdateHandlerForm.resources
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\bin\Release\wcommsixwrap.exe.config
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\bin\Release\wcommsixwrap.exe
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\bin\Release\wcommsixwrap.pdb
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Release\wcommsixwrap.csproj.SuggestedBindingRedirects.cache
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Release\wcommsixwrap.PrivacyPolicyForm.resources
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Release\wcommsixwrap.UpdateHandlerForm.resources
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Release\wcommsixwrap.csproj.GenerateResource.cache
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Release\wcommsixwrap.csproj.CoreCompileInputs.cache
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Release\wcommsixwrap.exe
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Release\wcommsixwrap.pdb

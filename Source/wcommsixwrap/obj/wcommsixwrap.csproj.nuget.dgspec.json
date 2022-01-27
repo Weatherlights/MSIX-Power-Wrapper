@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\wcomwrap3\\wcommsixwrap\\wcommsixwrap.csproj": {}
+    "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\wcommsixwrap.csproj": {}
   },
   "projects": {
-    "D:\\wcomwrap3\\wcommsixwrap\\wcommsixwrap.csproj": {
+    "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\wcommsixwrap.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\wcomwrap3\\wcommsixwrap\\wcommsixwrap.csproj",
+        "projectUniqueName": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\wcommsixwrap.csproj",
         "projectName": "wcommsixwrap",
-        "projectPath": "D:\\wcomwrap3\\wcommsixwrap\\wcommsixwrap.csproj",
+        "projectPath": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\wcommsixwrap.csproj",
         "packagesPath": "C:\\Users\\hauke\\.nuget\\packages\\",
-        "outputPath": "D:\\wcomwrap3\\wcommsixwrap\\obj\\",
+        "outputPath": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
