@@ -18,17 +18,17 @@ namespace wcommsixwrap
     {
         private CultureInfo ci;
         private StoreContext context = null;
+        private IReadOnlyList<StorePackageUpdate> updates;
         public string message;
         public string caption;
         public string mode;
         public bool mandatoryInstallationFailure = false;
         public bool hasMandatoryUpdates { get; set; }
-        private IReadOnlyList<StorePackageUpdate> updates;
+
         LogWriter myLogWriter = null;
 
         private bool installOnExit { get; set; }
         UpdateHandlerForm updateHandlerForm;
-        UpdateHandlerWindow updateHandlerWindow;
 
         public static string Element = "UpdateHandler";
 
@@ -39,7 +39,6 @@ namespace wcommsixwrap
 
             ci = CultureInfo.InstalledUICulture;
             updateHandlerForm = new UpdateHandlerForm();
-            updateHandlerWindow = new UpdateHandlerWindow();
         }
 
         public void processXml(XmlReader reader)
@@ -82,30 +81,36 @@ namespace wcommsixwrap
 
         public void Execute()
         {
-            
-           
+        
+
             if (context != null)
             {
                 myLogWriter.LogWrite("Will now see if we need to install something since we are about to exit.");
                 Task updateTask = new Task(this.InstallOnExit);
+                
+
+                
                 updateTask.Start();
                 updateTask.Wait();
             }
             if ( context == null )
             {
                 myLogWriter.LogWrite("Will now search for updates.");
-                Task searchTask = new Task(this.InstallOnStart);
-                searchTask.Start();
-                searchTask.Wait();
+                Thread updateThread = new Thread(this.InstallOnStart);
+                updateThread.SetApartmentState(ApartmentState.STA);
+                updateThread.Start();
+                updateThread.Join();
+
+
+                //Task searchTask = new Task(this.InstallOnStart);
+                //searchTask.Start();
+                //searchTask.Wait();
             }
             myLogWriter.LogWrite("Exiting UpdateHandler.");
         }
 
         private void configureForm()
         {
-            updateHandlerWindow.lblHeading.Content = this.caption;
-            updateHandlerWindow.lblMessage.Content = this.message;
-            updateHandlerWindow.Title = this.caption;
             updateHandlerForm.lblHeading.Text = this.caption;
             updateHandlerForm.Text = this.caption;
             updateHandlerForm.lblHeading.Text = this.message;
@@ -124,6 +129,7 @@ namespace wcommsixwrap
                 context = StoreContext.GetDefault();
             }
             myLogWriter.LogWrite("Loaded store context.");
+            
             
             //MessageBox.Show("Searching for Updates", "Searching", MessageBoxButton.OK, MessageBoxImage.Information);
             try
@@ -215,9 +221,19 @@ namespace wcommsixwrap
 
                         } else
                         {
-                            myLogWriter.LogWrite("Mandatory updates need to be installed and will now be enforced.");
-                            await InstallUpdate(updates);
-                            myLogWriter.LogWrite("InstallUpdate has finished execution.");
+                            try
+                            {
+                                myLogWriter.LogWrite("Mandatory updates need to be installed and will now be enforced.");
+                                UpdateHandlerWindow updateHandlerWindow = new UpdateHandlerWindow(context, updates, caption, message);
+                                myLogWriter.LogWrite("Window has been initialized.");
+                                updateHandlerWindow.ShowDialog();
+                                // await InstallUpdate(updates);
+                                myLogWriter.LogWrite("InstallUpdate has finished execution.");
+                            } catch (Exception ex) {
+                                myLogWriter.LogWrite("Failure initializing the mandatory app installation." +
+                                    "\n" + ex.Message
+                                    +"\n" + ex.ToString(), 3);
+                            }
                         }
 
                        
@@ -249,7 +265,7 @@ namespace wcommsixwrap
                 }
             } catch (Exception ex)
             {
-                myLogWriter.LogWrite("Failure running context.GetAppAndOptionalStorePackageUpdatesAsync() with " + ex.Message, 3);
+                myLogWriter.LogWrite("Failure running context.GetAppAndOptionalStorePackageUpdatesAsync() with " +ex.ToString(), 3);
                 hasMandatoryUpdates = false;
             }
             myLogWriter.LogWrite("Exiting Update procedure.");
@@ -274,7 +290,7 @@ namespace wcommsixwrap
         private async Task InstallUpdate(IReadOnlyList<StorePackageUpdate> storePackageUpdates)
         {
             this.configureForm();
-            
+           
             // Start the silent installation of the packages. Because the packages have already
             // been downloaded in the previous method, the following line of code just installs
             // the downloaded packages.
@@ -285,14 +301,14 @@ namespace wcommsixwrap
             else
                 installOperation = context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
             myLogWriter.LogWrite("Status: " + installOperation.Status.ToString());
-            updateHandlerWindow.ShowDialog();
+            updateHandlerForm.ShowDialog();
 
             myLogWriter.LogWrite("Showing Update Dialog");
    
            installOperation.AsTask().Wait();
             
             StorePackageUpdateResult installResult = await installOperation.AsTask();
-            updateHandlerWindow.Close();
+            updateHandlerForm.Close();
             myLogWriter.LogWrite("Closed Update dialog");
             //StorePackageUpdateResult downloadResult =
             //    await context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
