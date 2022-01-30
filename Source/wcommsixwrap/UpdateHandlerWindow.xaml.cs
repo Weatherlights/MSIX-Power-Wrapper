@@ -33,7 +33,7 @@ namespace wcommsixwrap
             myLogWriter.LogWrite("Calling InitializeComponent().");
             InitializeComponent();
             this.lblHeading.Content = heading;
-            this.lblMessage.Content = message;
+            this.lblMessage.Text = message;
             this.Title = heading;
             myLogWriter.LogWrite("Variables are now set.");
         }

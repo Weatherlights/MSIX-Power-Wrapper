@@ -10,7 +10,8 @@
 
         <ProgressBar Name="prgProgress" HorizontalAlignment="Center" Height="19" Margin="0,230,0,0" VerticalAlignment="Top" Width="400" Maximum="1" />
         <Label Name="lblHeading" Content="App is updating..." HorizontalAlignment="Left" Margin="50,94,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-        <Label Name="lblMessage" Content="We need to do some updates before you can use the app." HorizontalAlignment="Left" Height="55" Margin="50,130,0,0" VerticalAlignment="Top" Width="400" Grid.ColumnSpan="2"/>
+        <TextBox Name="lblMessage" TextWrapping="Wrap" Text="We need to do some updates before you can use the app. Please wait while we" HorizontalAlignment="Left" Height="55" Margin="50,130,0,0" VerticalAlignment="Top" Width="400" Grid.ColumnSpan="2"/>
+       
         <!--Rectangle HorizontalAlignment="Left" Margin="0,0,0,0" Stroke="Black" VerticalAlignment="Top" Height="450" Width="500"/-->
 
     </Grid>

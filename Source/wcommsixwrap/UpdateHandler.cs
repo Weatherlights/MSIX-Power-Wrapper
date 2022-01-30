@@ -178,7 +178,7 @@ namespace wcommsixwrap
                         }
                         else
                         {
-                            hasMandatoryUpdates = true;
+                            hasMandatoryUpdates = false;
                             myLogWriter.LogWrite("No mandatory updates found.");
                         }
 
@@ -291,14 +291,14 @@ namespace wcommsixwrap
             else
                 installOperation = context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
             myLogWriter.LogWrite("Status: " + installOperation.Status.ToString());
-            updateHandlerForm.ShowDialog();
+            //updateHandlerForm.ShowDialog();
 
             myLogWriter.LogWrite("Showing Update Dialog");
    
            installOperation.AsTask().Wait();
             
             StorePackageUpdateResult installResult = await installOperation.AsTask();
-            updateHandlerForm.Close();
+            //updateHandlerForm.Close();
             myLogWriter.LogWrite("Closed Update dialog");
             //StorePackageUpdateResult downloadResult =
             //    await context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
