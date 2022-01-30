@@ -21,7 +21,9 @@ namespace wcommsixwrap
         private IReadOnlyList<StorePackageUpdate> updates;
         public string message;
         public string caption;
-        public string mode;
+        public string messageFailRequired = "We can not launch the application without installing important updates. Please check the Microsoft Store for possible installation failures and retry.";
+        public string captionFailRequired = "Updates are missing";
+        public bool WaitForUpdateSearchToFinish = true;
         public bool mandatoryInstallationFailure = false;
         public bool hasMandatoryUpdates { get; set; }
 
@@ -61,8 +63,20 @@ namespace wcommsixwrap
                                 message = reader.Value;
                             }
                             break;
-                        case "Mode":
-                            mode = reader.Value;
+                        case "RequiredUpdateFailureMessage":
+                            string languageFailRequired = reader.GetAttribute("lang");
+
+                            if (languageFailRequired.Equals(langcode))
+                            {
+                                captionFailRequired = reader.GetAttribute("caption");
+                                reader.Read();
+                                messageFailRequired = reader.Value;
+                            }
+                            break;
+                        case "WaitForUpdateSearchToFinish":
+                            reader.Read();
+                            if ( reader.Value.Equals("false"))
+                                WaitForUpdateSearchToFinish = false;
                             break;
                                 
                     }
@@ -81,7 +95,6 @@ namespace wcommsixwrap
 
         public void Execute()
         {
-        
 
             if (context != null)
             {
@@ -99,7 +112,17 @@ namespace wcommsixwrap
                 Thread updateThread = new Thread(this.InstallOnStart);
                 updateThread.SetApartmentState(ApartmentState.STA);
                 updateThread.Start();
-                updateThread.Join();
+                myLogWriter.LogWrite("Status: " + WaitForUpdateSearchToFinish);
+                if (this.WaitForUpdateSearchToFinish == true)
+                {
+                    myLogWriter.LogWrite("Wait for update procedure to finish.");
+                    updateThread.Join();
+                }
+                else
+                {
+                    myLogWriter.LogWrite("We will not wait for update procedure to finish.");
+                }
+                
 
 
                 //Task searchTask = new Task(this.InstallOnStart);
@@ -112,8 +135,8 @@ namespace wcommsixwrap
         private void configureForm()
         {
             updateHandlerForm.lblHeading.Text = this.caption;
-            updateHandlerForm.Text = this.caption;
-            updateHandlerForm.lblHeading.Text = this.message;
+            updateHandlerForm.Text = this.message;
+            updateHandlerForm.lblHeading.Text = this.caption;
 
         }
 
@@ -136,6 +159,8 @@ namespace wcommsixwrap
             {
                 IAsyncOperation<IReadOnlyList<StorePackageUpdate>> searchOperation = context.GetAppAndOptionalStorePackageUpdatesAsync();
                 searchOperation.AsTask().Wait();
+
+
                 updates = await searchOperation.AsTask();
                 
                 myLogWriter.LogWrite("Found " + updates.Count + " updates.");
@@ -153,29 +178,13 @@ namespace wcommsixwrap
                         }
                         else
                         {
-                            hasMandatoryUpdates = false;
+                            hasMandatoryUpdates = true;
                             myLogWriter.LogWrite("No mandatory updates found.");
                         }
 
                     }
-                    /* if (hasMandatoryUpdates == false)
-                    {
-                        myLogWriter.LogWrite("Asking user to perform update.");
-                        MessageBoxResult msgresult = MessageBox.Show(message, caption, MessageBoxButton.YesNo, MessageBoxImage.Information);
-                        if (msgresult.Equals(MessageBoxResult.Yes))
-                        {
-                            executeUpdateProcedure = true;
-                            myLogWriter.LogWrite("User accepted update.");
-                        }
-                        else
-                        {
-                            myLogWriter.LogWrite("User rejected update.");
-                        }
 
-                    }
-                    else */
-                        executeUpdateProcedure = true;
-                    //MessageBox.Show("Exceute Update is " + executeUpdateProcedure, "Update is running", MessageBoxButton.OK, MessageBoxImage.Information);
+                    executeUpdateProcedure = true;
                     if (executeUpdateProcedure)
                     {
                         
@@ -224,7 +233,7 @@ namespace wcommsixwrap
                             try
                             {
                                 myLogWriter.LogWrite("Mandatory updates need to be installed and will now be enforced.");
-                                UpdateHandlerWindow updateHandlerWindow = new UpdateHandlerWindow(context, updates, caption, message);
+                                UpdateHandlerWindow updateHandlerWindow = new UpdateHandlerWindow(context, updates, caption, message, captionFailRequired, messageFailRequired);
                                 myLogWriter.LogWrite("Window has been initialized.");
                                 updateHandlerWindow.ShowDialog();
                                 // await InstallUpdate(updates);
@@ -235,25 +244,6 @@ namespace wcommsixwrap
                                     +"\n" + ex.ToString(), 3);
                             }
                         }
-
-                       
-
-                        // Download and install the updates.
-                        //IAsyncOperationWithProgress<StorePackageUpdateResult, StorePackageUpdateStatus> downloadOperation =
-                        //await context.RequestDownloadAndInstallStorePackageUpdatesAsync(updates);
-
-                        //downloadOperation.Pro
-
-                        /* updateHandlerForm.ShowDialog();
-                        downloadOperation.Progress = async (asyncInfo, progress) =>
-                        {
-                        updateHandlerForm.prgProgress.Value = (int)progress.PackageDownloadProgress;
-
-                        };
-                        updateHandlerForm.Close();*/
-
-                        //StorePackageUpdateResult result = await downloadOperation.AsTask();
-                        //MessageBox.Show("Update has finished" , "Update is running", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     }
 

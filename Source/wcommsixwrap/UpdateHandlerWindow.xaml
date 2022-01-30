@@ -5,13 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:wcommsixwrap"
              mc:Ignorable="d" 
-             Name="winUpdateHandler" Height="450" Width="500" ResizeMode="NoResize" Title="App is updating" Visibility="Visible" WindowStyle="None" WindowStartupLocation="CenterScreen" Topmost="True" Activated="winUpdateHandler_Activated" Loaded="winUpdateHandler_Loaded">
+             Name="winUpdateHandler" Height="450" Width="500" ResizeMode="CanMinimize" Title="App is updating" Visibility="Visible" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" Activated="winUpdateHandler_Activated" Loaded="winUpdateHandler_Loaded" Topmost="True" Icon="pack://application:,,,/wcommsixwrap;component/download1.ico">
     <Grid>
 
-        <ProgressBar Name="prgProgress" HorizontalAlignment="Left" Height="19" Margin="50,260,0,0" VerticalAlignment="Top" Width="400" Grid.ColumnSpan="2" Maximum="1" />
+        <ProgressBar Name="prgProgress" HorizontalAlignment="Center" Height="19" Margin="0,230,0,0" VerticalAlignment="Top" Width="400" Maximum="1" />
         <Label Name="lblHeading" Content="App is updating..." HorizontalAlignment="Left" Margin="50,94,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
         <Label Name="lblMessage" Content="We need to do some updates before you can use the app." HorizontalAlignment="Left" Height="55" Margin="50,130,0,0" VerticalAlignment="Top" Width="400" Grid.ColumnSpan="2"/>
-        <Rectangle HorizontalAlignment="Left" Margin="0,0,0,0" Stroke="Black" VerticalAlignment="Top" Height="450" Width="500"/>
+        <!--Rectangle HorizontalAlignment="Left" Margin="0,0,0,0" Stroke="Black" VerticalAlignment="Top" Height="450" Width="500"/-->
 
     </Grid>
 </Window>

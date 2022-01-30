@@ -138,6 +138,7 @@
     <None Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="download1.ico" />
     <Content Include="Stuff.xml" />
   </ItemGroup>
   <ItemGroup>

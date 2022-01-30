@@ -28,6 +28,8 @@ namespace wcommsixwrap
             LogWriter myLogWriter = new LogWriter("Main");
             myLogWriter.LogWrite("WCOMMSIXWRAP started.");
 
+            bool launchApp = true;
+
             string location = System.Reflection.Assembly.GetEntryAssembly().Location;
             string configlocation = location + ".wrunconfig";
             string wrapperAppData = ResolveVariables("[WRAPPER_APPDATA]");
@@ -112,9 +114,9 @@ namespace wcommsixwrap
                 myLogWriter.LogWrite("Executing myUpdateHandler.Execute();");
                 
                myUpdateHandler.Execute();
-                if (myUpdateHandler.mandatoryInstallationFailure)
+                if (myUpdateHandler.hasMandatoryUpdates && myUpdateHandler.WaitForUpdateSearchToFinish)
                 {
-                    System.Windows.MessageBox.Show("Application can not be started since a mandatory update is missing.", "Mandatory update missing", MessageBoxButton.OK, MessageBoxImage.Error);
+                    myLogWriter.LogWrite("Will exit the application to finish the installation of updates.");
                     return;
                 }
 
@@ -153,8 +155,6 @@ namespace wcommsixwrap
             {
                 myCertificateInstall.Execute();
             }
-
-     
             foreach ( Runtime myRuntime in myRuntimes ) {
                 myLogWriter.LogWrite("Executing myRuntime.Execute();");
                 myRuntime.Execute();
