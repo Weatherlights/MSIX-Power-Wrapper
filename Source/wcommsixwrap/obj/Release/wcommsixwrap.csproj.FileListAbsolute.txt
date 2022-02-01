@@ -49,3 +49,4 @@ C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Release\wcommsi
 C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Release\wcommsixwrap_MarkupCompile.lref
 C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Release\UpdateHandlerWindow.baml
 C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Release\wcommsixwrap.g.resources
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Release\wcommsixwrap.csproj.AssemblyReference.cache

@@ -9,9 +9,9 @@
     <Grid>
 
         <ProgressBar Name="prgProgress" HorizontalAlignment="Center" Height="19" Margin="0,230,0,0" VerticalAlignment="Top" Width="400" Maximum="1" />
-        <Label Name="lblHeading" Content="App is updating..." HorizontalAlignment="Left" Margin="50,94,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-        <TextBox Name="lblMessage" TextWrapping="Wrap" Text="We need to do some updates before you can use the app. Please wait while we" HorizontalAlignment="Left" Height="55" Margin="50,130,0,0" VerticalAlignment="Top" Width="400" Grid.ColumnSpan="2"/>
-       
+        <Label Name="lblHeading" Content="App is updating..." HorizontalAlignment="Center" Margin="0,94,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="400"/>
+        <TextBlock Name="lblMessage" TextWrapping="Wrap" Text="You may start the app once we are done." HorizontalAlignment="Left" Height="55" Margin="50,130,0,0" VerticalAlignment="Top" Width="400" IsEnabled="False" TextAlignment="Left"/>
+
         <!--Rectangle HorizontalAlignment="Left" Margin="0,0,0,0" Stroke="Black" VerticalAlignment="Top" Height="450" Width="500"/-->
 
     </Grid>

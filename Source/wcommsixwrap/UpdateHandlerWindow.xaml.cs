@@ -21,6 +21,7 @@ namespace wcommsixwrap
         private IReadOnlyList<StorePackageUpdate> updates;
         private string updateFailureCaption = "";
         private string updateFailureMessage = "";
+        public bool failure = false;
 
         public UpdateHandlerWindow(StoreContext context, IReadOnlyList<StorePackageUpdate> updates, String heading, String message, String myUpdateFailureCaption, String myUpdateFailureMessage)
         {
@@ -60,9 +61,11 @@ namespace wcommsixwrap
         public async Task DownloadAndInstallAllUpdatesAsync()
         {
             myLogWriter.LogWrite("Installation will now start.");
+            
             this.TaskbarItemInfo = new System.Windows.Shell.TaskbarItemInfo() { ProgressState = System.Windows.Shell.TaskbarItemProgressState.Normal };
             try
             {
+                bool failure = false;
                 IAsyncOperationWithProgress<StorePackageUpdateResult, StorePackageUpdateStatus> downloadOperation = context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(updates);
                 myLogWriter.LogWrite("Displaying Progress.");
                 // The Progress async method is called one time for each step in the download
@@ -80,7 +83,7 @@ namespace wcommsixwrap
                 StorePackageUpdateResult result = await downloadOperation.AsTask();
                 prgProgress.IsIndeterminate = true;
 
-                bool failure = false;
+                
                 switch (result.OverallState)
                 {
                     // If the user cancelled the installation or you can't perform the installation  
@@ -89,21 +92,22 @@ namespace wcommsixwrap
                     case StorePackageUpdateState.Canceled:
                         myLogWriter.LogWrite("Update installation failed. Process has been canceled.", 2);
                         failure = true;
-                        return;
+                        break;
                     case StorePackageUpdateState.ErrorLowBattery:
                         myLogWriter.LogWrite("Update installation failed. Batterylevel is low.", 2);
                         failure = true;
-                        return;
+                        break;
                     case StorePackageUpdateState.OtherError:
                         myLogWriter.LogWrite("Update installation failed. An unknown error occured.", 3);
                         failure = true;
-                        return;
+                        break;
                     default:
                         myLogWriter.LogWrite("Update installation was successfull.");
                         break;
                 }
                 if (failure)
                     MessageBox.Show(updateFailureCaption, updateFailureMessage, MessageBoxButton.OK, MessageBoxImage.Error);
+                    
             }
             catch (Exception ex)
             {

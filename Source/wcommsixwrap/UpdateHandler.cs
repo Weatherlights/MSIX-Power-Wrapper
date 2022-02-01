@@ -25,6 +25,7 @@ namespace wcommsixwrap
         public string captionFailRequired = "Updates are missing";
         public bool WaitForUpdateSearchToFinish = true;
         public bool mandatoryInstallationFailure = false;
+        private bool restartOnMandatoryUpdate = true;
         public bool hasMandatoryUpdates { get; set; }
 
         LogWriter myLogWriter = null;
@@ -56,7 +57,7 @@ namespace wcommsixwrap
                         case "Message":
                             string language = reader.GetAttribute("lang");
 
-                            if (language.Equals(langcode))
+                            if (language.Equals(langcode) || language.Equals("default"))
                             {
                                 caption = reader.GetAttribute("caption");
                                 reader.Read();
@@ -78,24 +79,38 @@ namespace wcommsixwrap
                             if ( reader.Value.Equals("false"))
                                 WaitForUpdateSearchToFinish = false;
                             break;
-                                
+                        case "RestartOnMandatoryUpdate":
+                            reader.Read();
+                            if (reader.Value.Equals("false"))
+                                restartOnMandatoryUpdate = false;
+                            break;
+
                     }
 
                 }
             }
         }
 
-        private async Task Sleepy()
+        private void SetRestartOnUpdate ()
         {
-            myLogWriter.LogWrite("Sleepy Start.");
-            Thread.Sleep(100);
-            myLogWriter.LogWrite("Sleepy End.");
-
+            if (restartOnMandatoryUpdate)
+            {
+                myLogWriter.LogWrite("Will now set application restart in case of mandatory update.");
+                uint res = RelaunchHelper.RegisterApplicationRestart(null, RelaunchHelper.RestartFlags.RESTART_NO_HANG);
+                if (res != 0)
+                {
+                    myLogWriter.LogWrite("Restart could not be set.");
+                }
+                else
+                {
+                    myLogWriter.LogWrite("Registered app in case of mandatory update.");
+                }
+            }
         }
 
         public void Execute()
         {
-
+            
             if (context != null)
             {
                 myLogWriter.LogWrite("Will now see if we need to install something since we are about to exit.");
@@ -108,6 +123,7 @@ namespace wcommsixwrap
             }
             if ( context == null )
             {
+
                 myLogWriter.LogWrite("Will now search for updates.");
                 Thread updateThread = new Thread(this.InstallOnStart);
                 updateThread.SetApartmentState(ApartmentState.STA);
@@ -175,6 +191,7 @@ namespace wcommsixwrap
                         {
                             hasMandatoryUpdates = true;
                             myLogWriter.LogWrite("Found mandatory updates.");
+                            
                         }
                         else
                         {
@@ -230,14 +247,22 @@ namespace wcommsixwrap
 
                         } else
                         {
+                            this.SetRestartOnUpdate();
                             try
                             {
                                 myLogWriter.LogWrite("Mandatory updates need to be installed and will now be enforced.");
                                 UpdateHandlerWindow updateHandlerWindow = new UpdateHandlerWindow(context, updates, caption, message, captionFailRequired, messageFailRequired);
                                 myLogWriter.LogWrite("Window has been initialized.");
                                 updateHandlerWindow.ShowDialog();
-                                // await InstallUpdate(updates);
                                 myLogWriter.LogWrite("InstallUpdate has finished execution.");
+                                if ( !updateHandlerWindow.failure )
+                                { 
+                                    
+                              
+                                    myLogWriter.LogWrite("App has been scheduled for a restart.");
+                                }
+                                // await InstallUpdate(updates);
+                                
                             } catch (Exception ex) {
                                 myLogWriter.LogWrite("Failure initializing the mandatory app installation." +
                                     "\n" + ex.Message
@@ -286,10 +311,8 @@ namespace wcommsixwrap
             // the downloaded packages.
 
             IAsyncOperationWithProgress<StorePackageUpdateResult, StorePackageUpdateStatus> installOperation;
-            if ( hasMandatoryUpdates )
-                installOperation = context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
-            else
-                installOperation = context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
+            
+            installOperation = context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
             myLogWriter.LogWrite("Status: " + installOperation.Status.ToString());
             //updateHandlerForm.ShowDialog();
 

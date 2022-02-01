@@ -24,11 +24,10 @@ namespace wcommsixwrap
         {
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
+            
 
             LogWriter myLogWriter = new LogWriter("Main");
             myLogWriter.LogWrite("WCOMMSIXWRAP started.");
-
-            bool launchApp = true;
 
             string location = System.Reflection.Assembly.GetEntryAssembly().Location;
             string configlocation = location + ".wrunconfig";

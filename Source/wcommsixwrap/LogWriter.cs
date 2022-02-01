@@ -18,13 +18,31 @@ namespace wcommsixwrap
         public void LogWrite(string logMessage)
         {
             this.LogWrite(logMessage, 1);
-        } 
-             
+        }
+
+        private void RotateLogs()
+        {
+            string dateformat = "MMddyyyy";
+            string timeformat = "HHmmss";
+
+            string logFilePath = wrapperAppData + "\\" + "Wrapper" + ".log";
+            string archivedLogFilePath = wrapperAppData + "\\" + "Wrapper-" + DateTime.Now.ToString(dateformat) + "-" + DateTime.Now.ToString(timeformat) + ".log";
+
+            FileInfo LogFile = new FileInfo(logFilePath);
+
+            if (LogFile.Exists && (LogFile.Length) >= 10 * 1048576)
+            {
+                LogFile.MoveTo(archivedLogFilePath);
+            }
+        }
+
         public void LogWrite(string logMessage, int type)
         {
+            string logFilePath = wrapperAppData + "\\" + "Wrapper" + ".log";
+            RotateLogs();
             try
             {
-                using (StreamWriter w = File.AppendText(wrapperAppData + "\\" + "Wrapper" +".log"))
+                using (StreamWriter w = File.AppendText(logFilePath))
                 {
                     Log(logMessage, type, w);
                 }
@@ -37,9 +55,9 @@ namespace wcommsixwrap
         public void Log(string logMessage, int type, TextWriter txtWriter)
         {
             string dateformat = "MM-dd-yyyy";
-            string timetormat = "HH:mm:ss.fff-000";
+            string timeformat = "HH:mm:ss.fff-000";
       
-            string logLine = "<![LOG[" + logMessage + "]LOG]!><time=\"" + DateTime.Now.ToString(timetormat) + "\" date=\"" + DateTime.Now.ToString(dateformat) + "\" component=\"" + component + "\" context=\"\" type=\""+type+"\" thread=\""+Thread.CurrentThread.ManagedThreadId+ "\" file=\"\">";
+            string logLine = "<![LOG[" + logMessage + "]LOG]!><time=\"" + DateTime.Now.ToString(timeformat) + "\" date=\"" + DateTime.Now.ToString(dateformat) + "\" component=\"" + component + "\" context=\"\" type=\""+type+"\" thread=\""+Thread.CurrentThread.ManagedThreadId+ "\" file=\"\">";
             try
             {
                 txtWriter.WriteLine(logLine);

@@ -115,6 +115,7 @@
       <DependentUpon>PrivacyPolicyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="RegistryEntry.cs" />
+    <Compile Include="RelaunchHelper.cs" />
     <Compile Include="RougeConfig.cs" />
     <Compile Include="Runtime.cs" />
     <Compile Include="Program.cs" />
