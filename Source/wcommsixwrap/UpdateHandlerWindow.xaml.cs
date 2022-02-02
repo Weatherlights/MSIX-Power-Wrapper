@@ -106,7 +106,7 @@ namespace wcommsixwrap
                         break;
                 }
                 if (failure)
-                    MessageBox.Show(updateFailureCaption, updateFailureMessage, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(updateFailureMessage, updateFailureCaption, MessageBoxButton.OK, MessageBoxImage.Error);
                     
             }
             catch (Exception ex)

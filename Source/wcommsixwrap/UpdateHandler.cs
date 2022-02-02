@@ -67,7 +67,7 @@ namespace wcommsixwrap
                         case "RequiredUpdateFailureMessage":
                             string languageFailRequired = reader.GetAttribute("lang");
 
-                            if (languageFailRequired.Equals(langcode))
+                            if (languageFailRequired.Equals(langcode) || languageFailRequired.Equals("default"))
                             {
                                 captionFailRequired = reader.GetAttribute("caption");
                                 reader.Read();
