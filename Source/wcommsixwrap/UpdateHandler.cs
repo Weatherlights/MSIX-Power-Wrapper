@@ -19,8 +19,8 @@ namespace wcommsixwrap
         private CultureInfo ci;
         private StoreContext context = null;
         private IReadOnlyList<StorePackageUpdate> updates;
-        public string message;
-        public string caption;
+        public string message="";
+        public string caption="";
         public string messageFailRequired = "We can not launch the application without installing important updates. Please check the Microsoft Store for possible installation failures and retry.";
         public string captionFailRequired = "Updates are missing";
         public bool WaitForUpdateSearchToFinish = true;
@@ -47,8 +47,11 @@ namespace wcommsixwrap
         public void processXml(XmlReader reader)
         {
             string langcode = ci.TwoLetterISOLanguageName;
+            bool languageFoundForDialog = false;
+            bool languageFoundForError = false;
             while (!reader.Name.Equals(Element) || reader.IsStartElement())
             {
+                
                 reader.Read();
                 if (reader.IsStartElement())
                 {
@@ -57,21 +60,23 @@ namespace wcommsixwrap
                         case "Message":
                             string language = reader.GetAttribute("lang");
 
-                            if (language.Equals(langcode) || language.Equals("default"))
+                            if (language.Equals(langcode) || (language.Equals("default") && !languageFoundForDialog))
                             {
                                 caption = reader.GetAttribute("caption");
                                 reader.Read();
                                 message = reader.Value;
+                                languageFoundForDialog = true;
                             }
                             break;
                         case "RequiredUpdateFailureMessage":
                             string languageFailRequired = reader.GetAttribute("lang");
 
-                            if (languageFailRequired.Equals(langcode) || languageFailRequired.Equals("default"))
+                            if (languageFailRequired.Equals(langcode) || (languageFailRequired.Equals("default") && !languageFoundForError))
                             {
                                 captionFailRequired = reader.GetAttribute("caption");
                                 reader.Read();
                                 messageFailRequired = reader.Value;
+                                languageFoundForError = true;
                             }
                             break;
                         case "WaitForUpdateSearchToFinish":
