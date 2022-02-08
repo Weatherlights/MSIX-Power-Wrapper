@@ -24,14 +24,16 @@ namespace wcommsixwrap
         {
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
-            
-
-            LogWriter myLogWriter = new LogWriter("Main");
-            myLogWriter.LogWrite("WCOMMSIXWRAP started.");
+           
 
             string location = System.Reflection.Assembly.GetEntryAssembly().Location;
             string configlocation = location + ".wrunconfig";
             string wrapperAppData = ResolveVariables("[WRAPPER_APPDATA]");
+
+            CreateDirectoryRecursively(wrapperAppData);
+
+            LogWriter myLogWriter = new LogWriter("Main");
+            myLogWriter.LogWrite("WCOMMSIXWRAP started.");
 
             myLogWriter.LogWrite("Configuration location is " + configlocation);
 
@@ -221,6 +223,44 @@ namespace wcommsixwrap
             return resolvedString;
         }
 
+        static string getResolvedExeName()
+        {
+            return System.AppDomain.CurrentDomain.FriendlyName;
+        }
+
+        static string getResolvedAppDir()
+        {
+            string location = System.Reflection.Assembly.GetEntryAssembly().Location;
+            location = location + "\\..";
+            return location;
+        }
+
+        static string getResolvedArgs()
+        {
+            string commandLine = getCommandLineArgument();
+            return commandLine;
+        }
+
+        static string getResolvedRESOLVED_ARGS()
+        {
+            string value = "";
+            value = ResolveVariables(getCommandLineArgument());
+            return value;
+        }
+
+        static string removeResolvedARGSSelector()
+        {
+            string value = "";
+            return value;
+        }
+
+        static string getResolvedWRAPPER_APPDATA()
+        {
+            string value = "";
+            value= ResolveVariables("[APPDATA]\\weatherlights.com\\[EXENAME]\\");
+            return value;
+        }
+
         static string getResolvedVariable(string variable)
         {
             Console.Write("Resolving " + variable + " to ");
@@ -235,23 +275,22 @@ namespace wcommsixwrap
             switch ( variable )
             {
                 case "[EXENAME]":
-                    value = System.AppDomain.CurrentDomain.FriendlyName;
+                    value = getResolvedExeName();
                     break;
                 case "[APPDIR]":
-                    string location = System.Reflection.Assembly.GetEntryAssembly().Location;
-                    value = location + "\\..";
+                    value = getResolvedAppDir();
                     break;
-                case "[INSTALLDIR]":
-                    value = Package.Current.InstalledPath;
-                    break;
+//                case "[INSTALLDIR]":
+//                    value = Package.Current.InstalledPath;
+ //                   break;
                 case "[ARGS]":
-                    value = getCommandLineArgument();
+                    value = getResolvedArgs();
                     break;
                 case "[RESOLVED_ARGS]":
-                    value = ResolveVariables(getCommandLineArgument());
+                    value = getResolvedRESOLVED_ARGS();
                     break;
                 case "[ARGSSELECTOR": // Remove the ArgsSelector.
-                    value = "";
+                    value = removeResolvedARGSSelector();
                     break;
                 case "[CHANGEEXTENSION":
                     if (parameters.Length > 2)
@@ -281,7 +320,7 @@ namespace wcommsixwrap
                     value = ResolveVariables(value);
                     break;
                 case "[WRAPPER_APPDATA]":
-                    value = ResolveVariables("[APPDATA]\\weatherlights.com\\[EXENAME]\\");
+                    value = getResolvedWRAPPER_APPDATA();
                 break;
                 default:
                     string envvariabel = variable.TrimStart('[').TrimEnd(']');

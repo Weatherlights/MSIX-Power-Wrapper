@@ -93,6 +93,14 @@ namespace wcommsixwrap
                         myLogWriter.LogWrite("Update installation failed. Process has been canceled.", 2);
                         failure = true;
                         break;
+                    case StorePackageUpdateState.ErrorWiFiRequired:
+                        myLogWriter.LogWrite("No wifi connection available.", 2);
+                        failure = true;
+                        break;
+                    case StorePackageUpdateState.ErrorWiFiRecommended:
+                        myLogWriter.LogWrite("A wifi connection is recommended.", 2);
+                        failure = true;
+                        break;
                     case StorePackageUpdateState.ErrorLowBattery:
                         myLogWriter.LogWrite("Update installation failed. Batterylevel is low.", 2);
                         failure = true;
