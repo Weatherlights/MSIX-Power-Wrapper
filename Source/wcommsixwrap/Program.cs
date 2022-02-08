@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Xml;
-using Windows.ApplicationModel;
+//using Windows.ApplicationModel;
 
 namespace wcommsixwrap
 {
@@ -204,7 +204,8 @@ namespace wcommsixwrap
           //  Regex rx = new Regex(@"\[(?>\[(?<LEVEL>)|\](?<-LEVEL>)|(?!\[|\]).)+(?(LEVEL)(?!))\]");
            Regex rx = new Regex(@"\[([^[]*?)\]");
             MatchCollection matches = rx.Matches(resolvedString);
-            while ( matches.Count > 0 )
+            int totalMatches = matches.Count;
+            while (totalMatches > 0 )
             {
               
                 Match match = matches[0];
@@ -214,12 +215,19 @@ namespace wcommsixwrap
                 int index = groups[0].Index;
                 int length = groups[0].Length;
                 string data = getResolvedVariable(groups[0].Value);
-                resolvedString = resolvedString.Remove(index, length);
-                resolvedString = resolvedString.Insert(index, data);
+                if (data != null)
+                {
+                    resolvedString = resolvedString.Remove(index, length);
+                    resolvedString = resolvedString.Insert(index, data);
 
-                matches = rx.Matches(resolvedString);
-           
+                    matches = rx.Matches(resolvedString);
+                    totalMatches = matches.Count;
+                } else
+                {
+                    totalMatches--;
+                }
             }
+           
             return resolvedString;
         }
 

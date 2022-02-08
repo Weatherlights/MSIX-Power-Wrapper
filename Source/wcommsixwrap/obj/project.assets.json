@@ -961,25 +961,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hauke\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\HaukeGötze\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\wcommsixwrap.csproj",
+      "projectUniqueName": "C:\\Users\\HaukeGötze\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\wcommsixwrap.csproj",
       "projectName": "wcommsixwrap",
-      "projectPath": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\wcommsixwrap.csproj",
-      "packagesPath": "C:\\Users\\hauke\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\obj\\",
+      "projectPath": "C:\\Users\\HaukeGötze\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\wcommsixwrap.csproj",
+      "packagesPath": "C:\\Users\\HaukeGötze\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\HaukeGötze\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\hauke\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\HaukeGötze\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
