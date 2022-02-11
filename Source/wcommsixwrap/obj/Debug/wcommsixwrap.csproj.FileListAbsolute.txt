@@ -56,7 +56,6 @@ C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixw
 C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\bin\Debug\wcommsixwrap.exe.config
 C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\bin\Debug\wcommsixwrap.exe
 C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\bin\Debug\wcommsixwrap.pdb
-C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap.csprojAssemblyReference.cache
 C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\UpdateHandlerWindow.g.cs
 C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap_Content.g.cs
 C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap_MarkupCompile.cache
@@ -69,3 +68,5 @@ C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wco
 C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap.csproj.CoreCompileInputs.cache
 C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap.exe
 C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap.pdb
+C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap.csproj.AssemblyReference.cache
+C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap.csproj.SuggestedBindingRedirects.cache

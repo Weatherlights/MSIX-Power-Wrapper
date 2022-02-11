@@ -201,30 +201,38 @@ namespace wcommsixwrap
         static public string ResolveVariables(string unresolvedString)
         {
             string resolvedString = unresolvedString;
-          //  Regex rx = new Regex(@"\[(?>\[(?<LEVEL>)|\](?<-LEVEL>)|(?!\[|\]).)+(?(LEVEL)(?!))\]");
-           Regex rx = new Regex(@"\[([^[]*?)\]");
+            //  Regex rx = new Regex(@"\[(?>\[(?<LEVEL>)|\](?<-LEVEL>)|(?!\[|\]).)+(?(LEVEL)(?!))\]");
+            Regex rx = new Regex(@"\[(?>\[(?<c>)|[^\[\]]+|\](?<-c>))*(?(c)(?!))\]");
+            //Regex rx = new Regex(@"\[([^[]*?)\]");
             MatchCollection matches = rx.Matches(resolvedString);
             int totalMatches = matches.Count;
-            while (totalMatches > 0 )
+            int lostLength = 0;
+            int gainedLength = 0;
+            //while (totalMatches >= 0 )
+                for (int i = 0; i < matches.Count; i++)
             {
               
-                Match match = matches[0];
+                Match match = matches[i];
 
                 GroupCollection groups = match.Groups;
                 string variable = groups[0].Value;
                 int index = groups[0].Index;
                 int length = groups[0].Length;
-                string data = getResolvedVariable(groups[0].Value);
+                int actualIndex = index - lostLength + gainedLength;
+                string data = getResolvedVariable(variable);
                 if (data != null)
                 {
-                    resolvedString = resolvedString.Remove(index, length);
-                    resolvedString = resolvedString.Insert(index, data);
+                    resolvedString = resolvedString.Remove(actualIndex, length);
+                    lostLength += length;
+                    resolvedString = resolvedString.Insert(actualIndex, data);
+                    gainedLength += data.Length;
 
-                    matches = rx.Matches(resolvedString);
-                    totalMatches = matches.Count;
+                    //matches = rx.Matches(resolvedString);
+                    //totalMatches = matches.Count;
+                    
                 } else
                 {
-                    totalMatches--;
+                    
                 }
             }
            
@@ -269,42 +277,99 @@ namespace wcommsixwrap
             return value;
         }
 
+        static public string EncodeTo64(string toEncode)
+        {
+            byte[] toEncodeAsBytes = System.Text.ASCIIEncoding.ASCII.GetBytes(toEncode);
+            string returnValue = System.Convert.ToBase64String(toEncodeAsBytes);
+            return returnValue;
+
+        }
+
+        static public string DecodeFrom64(string encodedData)
+        {
+            byte[] encodedDataAsBytes = System.Convert.FromBase64String(encodedData);
+            string returnValue = System.Text.ASCIIEncoding.ASCII.GetString(encodedDataAsBytes);
+            return returnValue;
+        }
+
+
+
+        static string[] prepareParameters(string variable)
+        {
+            string preparedVariable = variable.TrimStart('[').TrimEnd(']');
+            Regex rx = new Regex(@"\[(?>\[(?<c>)|[^\[\]]+|\](?<-c>))*(?(c)(?!))\]");
+            //Regex rx = new Regex(@"\[([^[]*?)\]");
+            MatchCollection matches = rx.Matches(preparedVariable);
+            foreach (Match match in matches)
+            {
+                GroupCollection groups = match.Groups;
+                string otherVariable = groups[0].Value;
+                preparedVariable = preparedVariable.Replace(otherVariable, "[" + EncodeTo64(otherVariable) + "]");
+            }
+            string[] splittedVariable = preparedVariable.Split('|');
+            for (int i = 0; i < splittedVariable.Length; i++ )
+            {
+                MatchCollection b64m = rx.Matches(splittedVariable[i]);
+                foreach(Match match in b64m)
+                {
+                    GroupCollection groups = match.Groups;
+                    string encodedVariable = groups[0].Value;
+                    string decodedVariable = DecodeFrom64(encodedVariable.TrimStart('[').TrimEnd(']'));
+                    splittedVariable[i] = splittedVariable[i].Replace(encodedVariable, decodedVariable);
+                }
+            }
+
+
+            return splittedVariable;
+
+
+        }
+
         static string getResolvedVariable(string variable)
         {
             Console.Write("Resolving " + variable + " to ");
-            string[] parameters = null;
+            string[] parameters = prepareParameters(variable);
             string value = "";
-            if ( variable.Contains("|") )
-            {
+           /* if ( variable.Contains("|") )
+           // {
+           
                 parameters = variable.Split('|');
                 variable = parameters[0];
                 parameters[parameters.Length - 1] = parameters[parameters.Length-1].TrimEnd(']');
-            }
-            switch ( variable )
+            }*/
+            switch ( parameters[0] )
             {
-                case "[EXENAME]":
+                case "EXENAME":
                     value = getResolvedExeName();
                     break;
-                case "[APPDIR]":
+                case "APPDIR":
                     value = getResolvedAppDir();
                     break;
 //                case "[INSTALLDIR]":
 //                    value = Package.Current.InstalledPath;
  //                   break;
-                case "[ARGS]":
+                case "ARGS":
                     value = getResolvedArgs();
                     break;
-                case "[RESOLVED_ARGS]":
+                case "RESOLVED_ARGS":
                     value = getResolvedRESOLVED_ARGS();
                     break;
-                case "[ARGSSELECTOR": // Remove the ArgsSelector.
+                case "ARGSSELECTOR": // Remove the ArgsSelector.
                     value = removeResolvedARGSSelector();
                     break;
-                case "[CHANGEEXTENSION":
+                case "CHANGEEXTENSION":
                     if (parameters.Length > 2)
                         value = Path.ChangeExtension(parameters[1], parameters[2]);
                     break;
-                case "[SPECIALFOLDER":
+                case "QUOTE":
+                    if (parameters.Length > 1)
+                        value = parameters[1];
+                    break;
+                case "ENV":
+                    if (parameters.Length > 1)
+                        value = System.Environment.GetEnvironmentVariable(parameters[1]);
+                    break;
+                case "SPECIALFOLDER":
                     if (parameters.Length > 1)
                         switch (parameters[1])
                         {
@@ -313,7 +378,7 @@ namespace wcommsixwrap
                             break;
                         }
                     break;
-                case "[RETRIVEFROMREGISTRY": // Get data from the registry
+                case "RETRIVEFROMREGISTRY": // Get data from the registry
                     if (parameters.Length > 4)
                         value = null;
                         try
@@ -327,7 +392,7 @@ namespace wcommsixwrap
                         value = parameters[4];  // In case the value does not exist.
                     value = ResolveVariables(value);
                     break;
-                case "[WRAPPER_APPDATA]":
+                case "WRAPPER_APPDATA":
                     value = getResolvedWRAPPER_APPDATA();
                 break;
                 default:
@@ -352,6 +417,7 @@ namespace wcommsixwrap
             string value = (string)myRegistryKey.GetValue(ValueName);
             if ( myRegistryKey != null  )
                 myRegistryKey.Close();
+
             return value;
         }
 

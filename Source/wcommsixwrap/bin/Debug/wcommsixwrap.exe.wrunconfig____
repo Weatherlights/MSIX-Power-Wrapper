@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <Process>
+    <Filename>mpc-be64.exe</Filename>
+    <WorkingDirectory>[APPDIR]</WorkingDirectory>
+    <Arguments>[ARGS]</Arguments>
+  </Process>
+  <VirtualFolder>
+    <Folder>[APPDIR]\VFS\AppData\MPC-BE</Folder>
+    <Target>[APPDATA]\MPC-BE</Target>
+  </VirtualFolder>
+  <UpdateHandler>
+     <WaitForUpdateSearchToFinish>false</WaitForUpdateSearchToFinish>
+     <RestartOnMandatoryUpdate>true</RestartOnMandatoryUpdate>
+     <Message lang="de" caption="MPC-BE Aktualisierung erforderlich">Bevor wir MPC-BE starten, muss es aktualisiert werden.</Message>
+     <Message lang="default" caption="MPC-BE needs to be updated">Before you can continue we need to update MPC-BE.</Message>
+     <RequiredUpdateFailureMessage lang="de" caption="Update fehlgeschlagen">Leider ist das Update fehlgeschlagen. Bitte teste deine Internetverbindung und versuche es erneut.</RequiredUpdateFailureMessage>
+     <RequiredUpdateFailureMessage lang="default" caption="Update failure">The required update could not be installed. Please check your connection and retry the installation.</RequiredUpdateFailureMessage>
+  </UpdateHandler>
+</config>
