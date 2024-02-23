@@ -1,20 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
   <Process>
-    <Filename>[APPDIR]\jre8\bin\javaw.exe</Filename>
+    <Filename>[APPDIR]\1by1.exe</Filename>
     <WorkingDirectory>[APPDIR]</WorkingDirectory>
-    <Arguments>-Xms256M -Xmx768M -classpath "fisprod.jar;" -Dsun.net.client.defaultConnectTimeout=[RETRIVEFROMREGISTRY|HKCU|SOFTWARE\Policies\FIS2\Prod|DefaultConnectTimeout|30000] -Dsun.net.client.defaultReadTimeout=[RETRIVEFROMREGISTRY|HKCU|SOFTWARE\Policies\FIS2\Prod|defaultReadTimeout|900000] -Dfis2.script.ver=10 -Dfis2.log.server=[RETRIVEFROMREGISTRY|HKCU|SOFTWARE\Policies\FIS2\Prod|logServer|fisprod.hlcl.com] -Dfis2.log.port=[RETRIVEFROMREGISTRY|HKCU|SOFTWARE\Policies\FIS2\Prod|logPort|80] -Dfis2.browser="[PROGRAMFILES]/Internet Explorer/IExplore.exe" -Dfis2.cache="[RETRIVEFROMREGISTRY|HKCU|SOFTWARE\Policies\FIS2\Prod|cacheDir|[LOCALAPPDATA]\FIS2prod]" -Dfis2.xchange="[RETRIVEFROMREGISTRY|HKCU|SOFTWARE\Policies\FIS2\Prod|xchangeDir|[SPECIALFOLDER|MYDOCUMENTS]\FIS2prod]" -Dfis2.base.server="[RETRIVEFROMREGISTRY|HKCU|SOFTWARE\Policies\FIS2\Prod|baseServer|fisprod.hlcl.com]" -Dfis2.base.port=[RETRIVEFROMREGISTRY|HKCU|SOFTWARE\Policies\FIS2\Prod|basePort|80] -Dfis2.ecf.port=[RETRIVEFROMREGISTRY|HKCU|SOFTWARE\Policies\FIS2\Prod|ecfPort|80] -Djxbrowser.chromium.dir=jxbrowser -Djava.security.manager -Djava.security.policy=hlcl.policy -Dswing.noxp=true com.hlcl.deploy.AppLauncher [ARGS]</Arguments>
+    <Arguments>test [ARGS|Hallo]</Arguments>
   </Process>
-  <!--PrivacyPolicy>
-    <Message lang="de" Caption="Datenschutzerklärung" DoNotShowAgainText="Diese Meldung nicht erneut anzeigen.">https://storeprivacypolicy.azurewebsites.net/generic/Privacy_de.html</Message>
-    <Message lang="default" Caption="Privacy Policy" DoNotShowAgainText="Do not show this message again.">https://storeprivacypolicy.azurewebsites.net/generic/Privacy_en.html</Message>
-  </PrivacyPolicy-->
-  <UpdateHandler>
-     <WaitForUpdateSearchToFinish>false</WaitForUpdateSearchToFinish>
-     <RestartOnMandatoryUpdate>true</RestartOnMandatoryUpdate>
-     <Message lang="de" caption="FIS 2 Aktualisierung erforderlich">Bevor wir FIS 2 starten, muss es aktualisiert werden.</Message>
-     <Message lang="default" caption="FIS 2 needs to be updated">Before you can continue we need to update FIS 2.</Message>
-     <RequiredUpdateFailureMessage lang="de" caption="Update fehlgeschlagen">Leider ist das Update fehlgeschlagen. Bitte teste deine Internetverbindung und versuche es erneut.</RequiredUpdateFailureMessage>
-     <RequiredUpdateFailureMessage lang="default" caption="Update failure">The required update could not be installed. Please check your connection and retry the installation.</RequiredUpdateFailureMessage>
-  </UpdateHandler>
+  <UnwantedFolder>
+    <Folder>C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\bin\Release\unwanted</Folder>
+  </UnwantedFolder>
+ 
 </config>

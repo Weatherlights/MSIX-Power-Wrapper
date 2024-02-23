@@ -36,7 +36,6 @@ D:\wcomwrap3\wcommsixwrap\obj\Debug\wcommsixwrap.exe
 D:\wcomwrap3\wcommsixwrap\obj\Debug\wcommsixwrap.pdb
 D:\wcomwrap3\wcommsixwrap\obj\Debug\wcommsixwrap.UpdateHandlerForm.resources
 D:\wcomwrap3\wcommsixwrap\obj\Debug\wcommsixwrap.csproj.AssemblyReference.cache
-C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap.csproj.SuggestedBindingRedirects.cache
 C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap.PrivacyPolicyForm.resources
 C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap.UpdateHandlerForm.resources
 C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap.csproj.GenerateResource.cache

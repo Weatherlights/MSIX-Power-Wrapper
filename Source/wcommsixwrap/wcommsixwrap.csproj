@@ -84,6 +84,9 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>download1.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -122,6 +125,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceHandler.cs" />
     <Compile Include="SymbolicLink.cs" />
+    <Compile Include="UnwantedFolder.cs" />
     <Compile Include="UpdateHandler.cs" />
     <Compile Include="UpdateHandlerForm.cs">
       <SubType>Form</SubType>

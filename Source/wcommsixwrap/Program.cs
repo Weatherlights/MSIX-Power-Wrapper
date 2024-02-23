@@ -43,6 +43,7 @@ namespace wcommsixwrap
             List<RegistryEntry> myRegistryEntries = new List<RegistryEntry>();
             List<SymbolicLink> mySymbolicLinks = new List<SymbolicLink>();
             List<Runtime> myRuntimes = new List<Runtime>();
+            List<UnwantedFolder> myUnwantedFolders = new List<UnwantedFolder>();
             List<ServiceHandler> myServiceHandlers = new List<ServiceHandler>();
             List<CertificateInstall> myCertificateInstallers = new List<CertificateInstall>();
             LiteWarning myLiteWarning = null;
@@ -66,6 +67,9 @@ namespace wcommsixwrap
                                 break;
                             case "RougeConfig":
                                 myRougeConfigs.Add(new RougeConfig(reader));
+                                break;
+                            case "UnwantedFolder":
+                                myUnwantedFolders.Add(new UnwantedFolder(reader));
                                 break;
                             case "VirtualFile":
                                 myFiles.Add(new VirtualFile(reader));
@@ -127,7 +131,13 @@ namespace wcommsixwrap
             {
                 myRegistryEntry.Execute();
             }
-            
+
+            foreach (UnwantedFolder myUnwantedFolder in myUnwantedFolders)
+            {
+                myUnwantedFolder.Execute();
+                myLogWriter.LogWrite("Removing unwanted Folder " + myUnwantedFolder.getFolderPath());
+            }
+
             foreach ( VirtualFile myFile in myFiles)
             {
                 myFile.Execute();
@@ -196,6 +206,29 @@ namespace wcommsixwrap
 
             }
             return argsOnly;
+        }
+
+        static public string getCommandLineArgument(string argumentName)
+        {
+            var args = Environment.GetCommandLineArgs();
+          
+            string value = "";
+            try
+            {
+                for (int i = 1; i < args.Length-1; i++ )
+                {
+                    if (args[i].ToUpper().Equals("/" + argumentName.ToUpper()) == true || args[i].ToUpper().Equals("-" + argumentName.ToUpper()) == true)
+                    {
+                        value = args[i + 1];
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+            return value;
         }
 
         static public string ResolveVariables(string unresolvedString)
@@ -349,7 +382,10 @@ namespace wcommsixwrap
 //                    value = Package.Current.InstalledPath;
  //                   break;
                 case "ARGS":
-                    value = getResolvedArgs();
+                    if (parameters.Length == 2)
+                        value = getCommandLineArgument(parameters[1]);
+                    else
+                        value = getResolvedArgs();
                     break;
                 case "RESOLVED_ARGS":
                     value = getResolvedRESOLVED_ARGS();
