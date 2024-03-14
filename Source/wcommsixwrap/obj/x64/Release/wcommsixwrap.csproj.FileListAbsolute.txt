@@ -1,0 +1,16 @@
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\bin\x64\Release\wcommsixwrap.exe.config
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\bin\x64\Release\wcommsixwrap.exe
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\bin\x64\Release\wcommsixwrap.pdb
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\x64\Release\wcommsixwrap.csproj.AssemblyReference.cache
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\x64\Release\UpdateHandlerWindow.g.cs
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\x64\Release\wcommsixwrap_Content.g.cs
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\x64\Release\wcommsixwrap_MarkupCompile.cache
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\x64\Release\wcommsixwrap_MarkupCompile.lref
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\x64\Release\UpdateHandlerWindow.baml
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\x64\Release\wcommsixwrap.g.resources
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\x64\Release\wcommsixwrap.PrivacyPolicyForm.resources
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\x64\Release\wcommsixwrap.UpdateHandlerForm.resources
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\x64\Release\wcommsixwrap.csproj.GenerateResource.cache
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\x64\Release\wcommsixwrap.csproj.CoreCompileInputs.cache
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\x64\Release\wcommsixwrap.exe
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\x64\Release\wcommsixwrap.pdb
