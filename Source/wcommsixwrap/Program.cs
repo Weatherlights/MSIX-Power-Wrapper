@@ -44,6 +44,7 @@ namespace wcommsixwrap
             List<SymbolicLink> mySymbolicLinks = new List<SymbolicLink>();
             List<Runtime> myRuntimes = new List<Runtime>();
             List<UnwantedFolder> myUnwantedFolders = new List<UnwantedFolder>();
+            List<UnwantedFile> myUnwantedFiles = new List<UnwantedFile>();
             List<ServiceHandler> myServiceHandlers = new List<ServiceHandler>();
             List<CertificateInstall> myCertificateInstallers = new List<CertificateInstall>();
             LiteWarning myLiteWarning = null;
@@ -70,6 +71,9 @@ namespace wcommsixwrap
                                 break;
                             case "UnwantedFolder":
                                 myUnwantedFolders.Add(new UnwantedFolder(reader));
+                                break;
+                            case "UnwantedFile":
+                                myUnwantedFiles.Add(new UnwantedFile(reader));
                                 break;
                             case "VirtualFile":
                                 myFiles.Add(new VirtualFile(reader));
@@ -136,6 +140,12 @@ namespace wcommsixwrap
             {
                 myUnwantedFolder.Execute();
                 myLogWriter.LogWrite("Removing unwanted Folder " + myUnwantedFolder.getFolderPath());
+            }
+
+            foreach (UnwantedFile myUnwantedFile in myUnwantedFiles)
+            {
+                myUnwantedFile.Execute();
+                myLogWriter.LogWrite("Removing unwanted File " + myUnwantedFile.getFilePath());
             }
 
             foreach ( VirtualFile myFile in myFiles)

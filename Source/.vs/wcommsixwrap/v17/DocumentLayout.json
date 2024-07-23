@@ -3,23 +3,39 @@
   "WorkspaceRootPath": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\logwriter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|solutionrelative:wcommsixwrap\\logwriter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|wcommsixwrap||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|c:\\users\\hauke\\github\\msix-power-wrapper\\source\\wcommsixwrap\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|solutionrelative:wcommsixwrap\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\runtime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|solutionrelative:wcommsixwrap\\runtime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|solutionrelative:wcommsixwrap\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|solutionrelative:wcommsixwrap\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\virtualfolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|solutionrelative:wcommsixwrap\\virtualfolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\unwantedfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|solutionrelative:wcommsixwrap\\unwantedfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\unwantedfolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|solutionrelative:wcommsixwrap\\unwantedfolder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\symboliclink.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|solutionrelative:wcommsixwrap\\symboliclink.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\logwriter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|solutionrelative:wcommsixwrap\\logwriter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\rougeconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,8 +58,7 @@
       "RelativeMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|solutionrelative:wcommsixwrap\\relaunchhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\symboliclink.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|solutionrelative:wcommsixwrap\\symboliclink.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{49AFECA4-CA38-49C3-9918-464C8574FC8F}|wcommsixwrap\\wcommsixwrap.csproj|c:\\users\\hauke\\github\\msix-power-wrapper\\source\\wcommsixwrap\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
     }
   ],
   "DocumentGroupContainers": [
@@ -53,11 +68,79 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 0,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "wcommsixwrap",
+              "DocumentMoniker": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\wcommsixwrap.csproj",
+              "RelativeDocumentMoniker": "wcommsixwrap\\wcommsixwrap.csproj",
+              "ToolTip": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\wcommsixwrap.csproj",
+              "RelativeToolTip": "wcommsixwrap\\wcommsixwrap.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-02-23T20:44:35.027Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Runtime.cs",
+              "DocumentMoniker": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\Runtime.cs",
+              "RelativeDocumentMoniker": "wcommsixwrap\\Runtime.cs",
+              "ToolTip": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\Runtime.cs",
+              "RelativeToolTip": "wcommsixwrap\\Runtime.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T21:02:33.981Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\Class1.cs",
+              "RelativeDocumentMoniker": "wcommsixwrap\\Class1.cs",
+              "ToolTip": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\Class1.cs",
+              "RelativeToolTip": "wcommsixwrap\\Class1.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-17T13:45:08.747Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "VirtualFolder.cs",
+              "DocumentMoniker": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\VirtualFolder.cs",
+              "RelativeDocumentMoniker": "wcommsixwrap\\VirtualFolder.cs",
+              "ToolTip": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\VirtualFolder.cs",
+              "RelativeToolTip": "wcommsixwrap\\VirtualFolder.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-17T13:44:59.773Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UnwantedFile.cs",
+              "DocumentMoniker": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\UnwantedFile.cs",
+              "RelativeDocumentMoniker": "wcommsixwrap\\UnwantedFile.cs",
+              "ToolTip": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\UnwantedFile.cs",
+              "RelativeToolTip": "wcommsixwrap\\UnwantedFile.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAACQAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-17T13:34:55.646Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LogWriter.cs",
+              "DocumentMoniker": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\LogWriter.cs",
+              "RelativeDocumentMoniker": "wcommsixwrap\\LogWriter.cs",
+              "ToolTip": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\LogWriter.cs",
+              "RelativeToolTip": "wcommsixwrap\\LogWriter.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADYAAABKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T20:39:48.038Z"
             },
             {
               "$type": "Document",
@@ -67,37 +150,13 @@
               "RelativeDocumentMoniker": "wcommsixwrap\\Program.cs",
               "ToolTip": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\Program.cs",
               "RelativeToolTip": "wcommsixwrap\\Program.cs",
-              "ViewState": "AQIAALUAAAAAAAAAAAAlwN0AAAASAAAA",
+              "ViewState": "AQIAAJAAAAAAAAAAAAAAAI0AAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-23T20:32:06.198Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-23T20:32:06.198Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Runtime.cs",
-              "DocumentMoniker": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\Runtime.cs",
-              "RelativeDocumentMoniker": "wcommsixwrap\\Runtime.cs",
-              "ToolTip": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\Runtime.cs",
-              "RelativeToolTip": "wcommsixwrap\\Runtime.cs",
-              "ViewState": "AQIAAC8AAAAAAAAAAAAlwEoAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-23T21:02:33.981Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "wcommsixwrap",
-              "DocumentMoniker": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\wcommsixwrap.csproj",
-              "RelativeDocumentMoniker": "wcommsixwrap\\wcommsixwrap.csproj",
-              "ToolTip": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\wcommsixwrap.csproj",
-              "RelativeToolTip": "wcommsixwrap\\wcommsixwrap.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-02-23T20:44:35.027Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "UpdateHandler.cs",
               "DocumentMoniker": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\UpdateHandler.cs",
               "RelativeDocumentMoniker": "wcommsixwrap\\UpdateHandler.cs",
@@ -109,20 +168,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "LogWriter.cs",
-              "DocumentMoniker": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\LogWriter.cs",
-              "RelativeDocumentMoniker": "wcommsixwrap\\LogWriter.cs",
-              "ToolTip": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\LogWriter.cs",
-              "RelativeToolTip": "wcommsixwrap\\LogWriter.cs",
-              "ViewState": "AQIAACEAAAAAAAAAAAAAADsAAABIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-23T20:39:48.038Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "LiteWarning1.cs",
               "DocumentMoniker": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\LiteWarning1.cs",
               "RelativeDocumentMoniker": "wcommsixwrap\\LiteWarning1.cs",
@@ -134,7 +180,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "PrivacyPolicy.cs",
               "DocumentMoniker": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\PrivacyPolicy.cs",
               "RelativeDocumentMoniker": "wcommsixwrap\\PrivacyPolicy.cs",
@@ -146,7 +192,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "RelaunchHelper.cs",
               "DocumentMoniker": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\RelaunchHelper.cs",
               "RelativeDocumentMoniker": "wcommsixwrap\\RelaunchHelper.cs",
@@ -158,7 +204,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 7,
               "Title": "SymbolicLink.cs",
               "DocumentMoniker": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\SymbolicLink.cs",
               "RelativeDocumentMoniker": "wcommsixwrap\\SymbolicLink.cs",
@@ -166,12 +212,11 @@
               "RelativeToolTip": "wcommsixwrap\\SymbolicLink.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-23T20:39:30.591Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-23T20:39:30.591Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "RougeConfig.cs",
               "DocumentMoniker": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\RougeConfig.cs",
               "RelativeDocumentMoniker": "wcommsixwrap\\RougeConfig.cs",
@@ -183,15 +228,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "UnwantedFolder.cs",
               "DocumentMoniker": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\UnwantedFolder.cs",
               "RelativeDocumentMoniker": "wcommsixwrap\\UnwantedFolder.cs",
               "ToolTip": "C:\\Users\\hauke\\GitHub\\MSIX-Power-Wrapper\\Source\\wcommsixwrap\\UnwantedFolder.cs",
               "RelativeToolTip": "wcommsixwrap\\UnwantedFolder.cs",
-              "ViewState": "AQIAADYAAAAAAAAAAAAAACUAAAAcAAAA",
+              "ViewState": "AQIAACYAAAAAAAAAAAAAAFcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-23T20:33:04.635Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             }
           ]
         }

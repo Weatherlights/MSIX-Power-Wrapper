@@ -20,4 +20,7 @@
     <StartArguments>
     </StartArguments>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
+    <StartArguments>/hallo "hoh ooh" /dads fgewfrw</StartArguments>
+  </PropertyGroup>
 </Project>

@@ -4,7 +4,7 @@
 winexe
 C#
 .cs
-C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Release\
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\ARM64\Release\
 wcommsixwrap
 none
 false
@@ -12,9 +12,9 @@ TRACE
 
 11913578027
 1-1187148235
-22-1076167243
+23-1606827490
 211318137488
 UpdateHandlerWindow.xaml;
 
-False
+True
 
