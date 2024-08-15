@@ -1,7 +1,7 @@
 ﻿wcommsixwrap
 
 
-exe
+winexe
 C#
 .cs
 C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\x64\Release\
@@ -12,7 +12,7 @@ TRACE
 
 11913578027
 1-1187148235
-231759713008
+241774833261
 211318137488
 UpdateHandlerWindow.xaml;
 

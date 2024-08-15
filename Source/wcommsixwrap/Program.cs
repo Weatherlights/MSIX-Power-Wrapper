@@ -25,12 +25,17 @@ namespace wcommsixwrap
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
            
-
+                
             string location = System.Reflection.Assembly.GetEntryAssembly().Location;
             string configlocation = location + ".wrunconfig";
             string wrapperAppData = ResolveVariables("[WRAPPER_APPDATA]");
 
             CreateDirectoryRecursively(wrapperAppData);
+
+            ConfigurationReader configReader = new ConfigurationReader();
+            bool test = configReader.validateSignature("C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\wcommsixconfig.cat");
+
+            bool test2 = configReader.validateFileAgainstHash("C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\wcommsixconfig.cat", "C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\Winget-AutoUpdate-x64.exe.wrunconfig");
 
             LogWriter myLogWriter = new LogWriter("Main");
             myLogWriter.LogWrite("WCOMMSIXWRAP started.");

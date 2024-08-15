@@ -123,11 +123,16 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="wincatalogdotnet, Version=0.0.1.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Downloads\win-catalog-dotnet-v0.0.1\wincatalogdotnet.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CertificateInstall.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="ConfigurationReader.cs" />
     <Compile Include="LiteWarning1.cs" />
     <Compile Include="LogWriter.cs" />
     <Compile Include="PrivacyPolicy.cs" />

@@ -1,0 +1,122 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+using System.Dynamic;
+using System.IO;
+using wincatalogdotnet;
+using System.Diagnostics;
+using System.Security.Policy;
+
+namespace wcommsixwrap
+{
+    internal class ConfigurationReader
+    {
+
+
+        public ConfigurationReader() { }
+
+        public bool validateSignature(string filePath)
+        {
+           
+
+            X509Certificate2 theCertificate;
+
+            try
+            {
+                X509Certificate theSigner = X509Certificate.CreateFromSignedFile(filePath);
+                theCertificate = new X509Certificate2(theSigner);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("No digital signature found: " + ex.Message);
+
+                return false;
+            }
+
+            bool chainIsValid = false;
+
+            /*
+             *
+             * This section will check that the certificate is from a trusted authority IE
+             * not self-signed.
+             *
+             */
+
+            var theCertificateChain = new X509Chain();
+
+            theCertificateChain.ChainPolicy.RevocationFlag = X509RevocationFlag.ExcludeRoot;
+
+            /*
+             *
+             * Using .Online here means that the validation WILL CALL OUT TO THE INTERNET
+             * to check the revocation status of the certificate. Change to .Offline if you
+             * don't want that to happen.
+             */
+
+            theCertificateChain.ChainPolicy.RevocationMode = X509RevocationMode.Online;
+
+            theCertificateChain.ChainPolicy.UrlRetrievalTimeout = new TimeSpan(0, 1, 0);
+
+            theCertificateChain.ChainPolicy.VerificationFlags = X509VerificationFlags.NoFlag;
+
+            chainIsValid = theCertificateChain.Build(theCertificate);
+
+            if (chainIsValid)
+            {
+                Console.WriteLine("Publisher Information : " + theCertificate.SubjectName.Name);
+                Console.WriteLine("Valid From: " + theCertificate.GetEffectiveDateString());
+                Console.WriteLine("Valid To: " + theCertificate.GetExpirationDateString());
+                Console.WriteLine("Issued By: " + theCertificate.Issuer);
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Chain Not Valid (certificate is self-signed)");
+                return false;
+            }
+        }
+
+        public bool validateFileAgainstHash(string catalogFilePath, string File)
+        {
+            bool result = false;
+            HashSet<string> hashes = this.ReadCatalogInfo(catalogFilePath);
+            string targetHash = GetBase64EncodedSHA1Hash(File);
+            foreach (string hash in hashes)
+            {
+                if (hash == targetHash)
+                {  
+                    result = true;
+                }
+            }
+            return result;
+        }
+
+        string GetBase64EncodedSHA1Hash(string filename)
+        {
+            using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (SHA1Managed sha1 = new SHA1Managed())
+            {
+                return Convert.ToBase64String(sha1.ComputeHash(fs));
+            }
+        }
+
+        public HashSet<string> ReadCatalogInfo(string catalogFilePath)
+        {
+            int catVer;
+
+            HashSet<string> hashes = new HashSet<string>();
+
+            var temp = WinCatalog.GetHashesFromCatalog(catalogFilePath, out catVer);
+            foreach (string hash in temp)
+            {
+                hashes.Add(hash);
+            }
+            return hashes;
+        }
+
+    }
+}
