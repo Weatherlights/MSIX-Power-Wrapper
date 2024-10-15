@@ -32,10 +32,10 @@ namespace wcommsixwrap
 
             CreateDirectoryRecursively(wrapperAppData);
 
-            ConfigurationReader configReader = new ConfigurationReader();
-            bool test = configReader.validateSignature("C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\wcommsixconfig.cat");
+ //           ConfigurationReader configReader = new ConfigurationReader();
+ //           bool test = configReader.validateSignature("C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\wcommsixconfig.cat");
 
-            bool test2 = configReader.validateFileAgainstHash("C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\wcommsixconfig.cat", "C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\Winget-AutoUpdate-x64.exe.wrunconfig");
+ //           bool test2 = configReader.validateFileAgainstHash("C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\wcommsixconfig.cat", "C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\Winget-AutoUpdate-x64.exe.wrunconfig");
 
             LogWriter myLogWriter = new LogWriter("Main");
             myLogWriter.LogWrite("WCOMMSIXWRAP started.");
@@ -52,9 +52,11 @@ namespace wcommsixwrap
             List<UnwantedFile> myUnwantedFiles = new List<UnwantedFile>();
             List<ServiceHandler> myServiceHandlers = new List<ServiceHandler>();
             List<CertificateInstall> myCertificateInstallers = new List<CertificateInstall>();
+            List<EnvironmentVariable> myEnvironmentVariables = new List<EnvironmentVariable>();
             LiteWarning myLiteWarning = null;
             UpdateHandler myUpdateHandler = null;
-            PrivacyPolicy myPrivacyPolicy = null;
+            AppInstallerUpdateHandler myAppInstallerUpdateHandler = null;
+          PrivacyPolicy myPrivacyPolicy = null;
 
             myLogWriter.LogWrite("Initialized objects");
 
@@ -93,6 +95,10 @@ namespace wcommsixwrap
                                 myUpdateHandler = new UpdateHandler();
                                 myUpdateHandler.processXml(reader);
                                 break;
+                            case "AppInstallerUpdateHandler":
+                                myAppInstallerUpdateHandler = new AppInstallerUpdateHandler();
+                                myAppInstallerUpdateHandler.processXml(reader);
+                                break;
                             case "LiteWarning":
                                 myLiteWarning = new LiteWarning();
                                 myLiteWarning.processXml(reader);
@@ -103,6 +109,9 @@ namespace wcommsixwrap
                              break;
                             case "SymbolicLink":
                                 mySymbolicLinks.Add(new SymbolicLink(reader));
+                                break;
+                            case "EnvironmentVariable":
+                                myEnvironmentVariables.Add(new EnvironmentVariable(reader));
                                 break;
                             case "Certificate":
                                 myCertificateInstallers.Add(new CertificateInstall(reader));
@@ -133,9 +142,27 @@ namespace wcommsixwrap
                     myLogWriter.LogWrite("Will exit the application to finish the installation of updates.");
                     return;
                 }
-
-
             }
+
+            if (myAppInstallerUpdateHandler != null)
+            {
+                myLogWriter.LogWrite("Executing myUpdateHandler.Execute();");
+
+                myAppInstallerUpdateHandler.Execute();
+                if (myAppInstallerUpdateHandler.hasMandatoryUpdates && myAppInstallerUpdateHandler.WaitForUpdateSearchToFinish)
+                {
+                    myLogWriter.LogWrite("Will exit the application to finish the installation of updates.");
+                    return;
+                }
+            }
+
+
+            foreach (EnvironmentVariable myEnvironmentVariable in myEnvironmentVariables)
+            {
+                myEnvironmentVariable.Execute();
+                myLogWriter.LogWrite("Set environment variable  " + myEnvironmentVariable.variableName + " to " + myEnvironmentVariable.variableValue + " for " + myEnvironmentVariable.variableTarget);
+            }
+
             foreach (RegistryEntry myRegistryEntry in myRegistryEntries)
             {
                 myRegistryEntry.Execute();
@@ -203,6 +230,14 @@ namespace wcommsixwrap
                 myLogWriter.LogWrite("Executing myUpdateHandler.Execute();");
 
                 myUpdateHandler.Execute();
+
+            }
+
+            if (myAppInstallerUpdateHandler != null)
+            {
+                myLogWriter.LogWrite("Executing myUpdateHandler.Execute();");
+
+                myAppInstallerUpdateHandler.Execute();
 
             }
             myLogWriter.LogWrite("Exiting wrapper.");

@@ -130,9 +130,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppInstallerUpdateHandler.cs" />
     <Compile Include="CertificateInstall.cs" />
     <Compile Include="Class1.cs" />
-    <Compile Include="ConfigurationReader.cs" />
+    <None Include="ConfigurationReader.cs.old" />
+    <Compile Include="EnvironmentVariable.cs" />
     <Compile Include="LiteWarning1.cs" />
     <Compile Include="LogWriter.cs" />
     <Compile Include="PrivacyPolicy.cs" />

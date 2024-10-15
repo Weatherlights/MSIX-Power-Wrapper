@@ -1,10 +1,10 @@
-﻿wcommsixwrap
+﻿MSIX Powerwrapper
 
 
 winexe
 C#
 .cs
-C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\x64\Release\
+C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Release\
 wcommsixwrap
 none
 false
@@ -12,7 +12,7 @@ TRACE
 
 11913578027
 1-1187148235
-24-1958032924
+24-1121328329
 211318137488
 UpdateHandlerWindow.xaml;
 

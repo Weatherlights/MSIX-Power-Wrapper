@@ -104,7 +104,7 @@ namespace wcommsixwrap
             }
         }
 
-        public HashSet<string> ReadCatalogInfo(string catalogFilePath)
+ /*       public HashSet<string> ReadCatalogInfo(string catalogFilePath)
         {
             int catVer;
 
@@ -116,7 +116,7 @@ namespace wcommsixwrap
                 hashes.Add(hash);
             }
             return hashes;
-        }
+        } */
 
     }
 }

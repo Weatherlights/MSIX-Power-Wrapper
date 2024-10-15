@@ -69,5 +69,3 @@ C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wco
 C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap.pdb
 C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap.csproj.AssemblyReference.cache
 C:\Users\HaukeGötze\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsixwrap.csproj.SuggestedBindingRedirects.cache
-C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\bin\Debug\wincatalogdotnet.dll
-C:\Users\hauke\GitHub\MSIX-Power-Wrapper\Source\wcommsixwrap\obj\Debug\wcommsix.9134430C.Up2Date
