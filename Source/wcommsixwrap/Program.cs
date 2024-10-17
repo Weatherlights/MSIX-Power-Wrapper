@@ -38,7 +38,7 @@ namespace wcommsixwrap
  //           bool test2 = configReader.validateFileAgainstHash("C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\wcommsixconfig.cat", "C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\Winget-AutoUpdate-x64.exe.wrunconfig");
 
             LogWriter myLogWriter = new LogWriter("Main");
-            myLogWriter.LogWrite("WCOMMSIXWRAP started.");
+            myLogWriter.LogWrite("MSIX Powerwrapper started.");
 
             myLogWriter.LogWrite("Configuration location is " + configlocation);
 
@@ -146,7 +146,7 @@ namespace wcommsixwrap
 
             if (myAppInstallerUpdateHandler != null)
             {
-                myLogWriter.LogWrite("Executing myUpdateHandler.Execute();");
+                myLogWriter.LogWrite("Executing myAppInstallerUpdateHandler.Execute();");
 
                 myAppInstallerUpdateHandler.Execute();
                 if (myAppInstallerUpdateHandler.hasMandatoryUpdates && myAppInstallerUpdateHandler.WaitForUpdateSearchToFinish)

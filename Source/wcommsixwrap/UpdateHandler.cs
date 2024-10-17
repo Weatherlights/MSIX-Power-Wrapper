@@ -259,6 +259,8 @@ namespace wcommsixwrap
                                 UpdateHandlerWindow updateHandlerWindow = new UpdateHandlerWindow(context, updates, caption, message, captionFailRequired, messageFailRequired);
                                 myLogWriter.LogWrite("Window has been initialized.");
                                 updateHandlerWindow.ShowDialog();
+
+                                
                                 myLogWriter.LogWrite("InstallUpdate has finished execution.");
                                 if ( !updateHandlerWindow.failure )
                                 { 

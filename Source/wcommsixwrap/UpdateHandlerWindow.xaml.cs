@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Management.Deployment;
 using Windows.Services.Store;
@@ -49,6 +52,7 @@ namespace wcommsixwrap
             this.AppInstallerUri = myAppInstallerUri;
             this.updateFailureCaption = myUpdateFailureCaption;
             this.updateFailureMessage = myUpdateFailureMessage;
+            
             myLogWriter.LogWrite("Calling InitializeComponent().");
             InitializeComponent();
             this.lblHeading.Content = heading;
@@ -70,11 +74,10 @@ namespace wcommsixwrap
         private void winUpdateHandler_Loaded(object sender, RoutedEventArgs e)
         {
             myLogWriter.LogWrite("Form has loaded. Will now begin download task.");
-            
-           DownloadAndInstallAllUpdatesAsync();
-           
 
         }
+
+ 
 
         public async Task DownloadAndInstallAllUpdatesAsync()
         {
@@ -84,7 +87,7 @@ namespace wcommsixwrap
             try
             {
                 bool failure = false;
-                
+
                 if (context != null)
                 {
                     IAsyncOperationWithProgress<StorePackageUpdateResult, StorePackageUpdateStatus> downloadOperation = null;
@@ -134,11 +137,26 @@ namespace wcommsixwrap
                     }
                     if (failure)
                         MessageBox.Show(updateFailureMessage, updateFailureCaption, MessageBoxButton.OK, MessageBoxImage.Error);
-                } else if (packageManager != null )
+                }
+                else if (packageManager != null)
                 {
-                    IAsyncOperationWithProgress<Windows.Management.Deployment.DeploymentResult, Windows.Management.Deployment.DeploymentProgress> downloadOperation = null;
-                    downloadOperation = packageManager.AddPackageByAppInstallerFileAsync(AppInstallerUri, AddPackageByAppInstallerOptions.ForceTargetAppShutdown, packageManager.GetDefaultPackageVolume());
-                    downloadOperation.Progress = async (asyncInfo, progress) =>
+                    IAsyncOperationWithProgress<Windows.Management.Deployment.DeploymentResult, Windows.Management.Deployment.DeploymentProgress> deploymentOperation = null;
+
+                    PackageCatalog packageCatalog = PackageCatalog.OpenForCurrentUser();
+                    packageCatalog.PackageStaging += async (asyncInfo, progress) =>
+                    {
+                        await this.Dispatcher.InvokeAsync(
+                        () =>
+                        {
+                            TaskbarItemInfo.ProgressValue = progress.Progress/100;
+                            prgProgress.Value = progress.Progress/100;
+                        });
+                    };
+
+                    deploymentOperation = packageManager.AddPackageByAppInstallerFileAsync(AppInstallerUri, AddPackageByAppInstallerOptions.ForceTargetAppShutdown, packageManager.GetDefaultPackageVolume());
+                    myLogWriter.LogWrite("Download Operation initialized.");
+                    
+                    /*deploymentOperation.Progress = async (asyncInfo, progress) =>
                     {
                         await this.Dispatcher.InvokeAsync(
                         () =>
@@ -146,25 +164,30 @@ namespace wcommsixwrap
                             TaskbarItemInfo.ProgressValue = progress.percentage;
                             prgProgress.Value = progress.percentage;
                         });
-                    };
+                    };*/
+                    myLogWriter.LogWrite("Displaying Progress.");
 
-                    var result = await downloadOperation;
+                    var result = await deploymentOperation;
 
                     if (result.ExtendedErrorCode != null)
                     {
                         failure = true;
                         myLogWriter.LogWrite("Update failed with: result." + result.ExtendedErrorCode, 3);
                     }
+
+
+
+
+
+
+                    // The Progress async method is called one time for each step in the download
+                    // and installation process for each package in this request.
+
+
+
+                    prgProgress.IsIndeterminate = true;
+
                 }
-                myLogWriter.LogWrite("Displaying Progress.");
-                // The Progress async method is called one time for each step in the download
-                // and installation process for each package in this request.
-
-                
-                
-                prgProgress.IsIndeterminate = true;
-
-                
                 
                     
             }
@@ -174,6 +197,21 @@ namespace wcommsixwrap
                 
             }
             this.Close();
+        }
+
+
+        private void prgProgress_Loaded_1(object sender, RoutedEventArgs e)
+        {
+            if (this.context == null) {
+                this.TaskbarItemInfo = new System.Windows.Shell.TaskbarItemInfo() { ProgressState = System.Windows.Shell.TaskbarItemProgressState.Normal };
+                
+                //packageCatalog.PackageUpdating += OnPackageUpdating;
+                //packageCatalog.PackageStaging += OnPackageStaging;
+                
+
+            }
+
+            DownloadAndInstallAllUpdatesAsync();
         }
     }
 }

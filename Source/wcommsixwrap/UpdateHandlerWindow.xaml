@@ -8,7 +8,7 @@
              Name="winUpdateHandler" Height="450" Width="500" ResizeMode="CanMinimize" Title="App is updating" Visibility="Visible" WindowStyle="ThreeDBorderWindow" WindowStartupLocation="CenterScreen" Activated="winUpdateHandler_Activated" Loaded="winUpdateHandler_Loaded" Topmost="True" Icon="pack://application:,,,/wcommsixwrap;component/download1.ico">
     <Grid>
 
-        <ProgressBar Name="prgProgress" HorizontalAlignment="Center" Height="19" Margin="0,230,0,0" VerticalAlignment="Top" Width="400" Maximum="1" />
+        <ProgressBar Name="prgProgress" HorizontalAlignment="Center" Height="19" Margin="0,230,0,0" VerticalAlignment="Top" Width="400" Maximum="1" Loaded="prgProgress_Loaded_1"   />
         <Label Name="lblHeading" Content="App is updating..." HorizontalAlignment="Center" Margin="0,94,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Width="400"/>
         <TextBlock Name="lblMessage" TextWrapping="Wrap" Text="You may start the app once we are done." HorizontalAlignment="Left" Height="55" Margin="50,130,0,0" VerticalAlignment="Top" Width="400" IsEnabled="False" TextAlignment="Left"/>
 

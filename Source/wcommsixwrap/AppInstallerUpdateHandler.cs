@@ -33,6 +33,7 @@ namespace wcommsixwrap
         public bool WaitForUpdateSearchToFinish = true;
         public bool mandatoryInstallationFailure = false;
         private bool restartOnMandatoryUpdate = true;
+        private bool treatAvailableUpdateAsMandatory = false;
         public bool hasMandatoryUpdates { get; set; }
         public Uri AppInstallerUri { get; set; }
 
@@ -94,6 +95,11 @@ namespace wcommsixwrap
                             reader.Read();
                             if (reader.Value.Equals("false"))
                                 restartOnMandatoryUpdate = false;
+                            break;
+                        case "TreatAvailableUpdateAsMandatory":
+                            reader.Read();
+                            if (reader.Value.Equals("true"))
+                                treatAvailableUpdateAsMandatory = true;
                             break;
                         case "AppInstallerUri":
                             reader.Read();
@@ -203,14 +209,21 @@ namespace wcommsixwrap
                 IAsyncOperation<PackageUpdateAvailabilityResult> searchOperation = package.CheckUpdateAvailabilityAsync();
                 
                 searchOperation.AsTask().Wait();
-
+                
                 updateresult = await searchOperation.AsTask();
-
                 switch (updateresult.Availability)
                 {
                     case PackageUpdateAvailability.Available:
                         myLogWriter.LogWrite("Found available updates.");
-                        hasMandatoryUpdates = true;
+                        if (treatAvailableUpdateAsMandatory)
+                        {
+                            hasMandatoryUpdates = true;
+                            myLogWriter.LogWrite("treatAvailableUpdateAsMandatory is set. Will treat available update as mandatory.");
+                        } else
+                        {
+                            installOnExit = true;
+                            myLogWriter.LogWrite("treatAvailableUpdateAsMandatory is not set. Will install update on exit.");
+                        }
                         break;
                     case PackageUpdateAvailability.Required:
                         //Queue up the update and close the current instance
@@ -225,16 +238,9 @@ namespace wcommsixwrap
                     case PackageUpdateAvailability.Unknown:
                     default:
                         // Log and ignore error.
-                        myLogWriter.LogWrite("Failed to process updates.");
+                        myLogWriter.LogWrite("Failed to process updates.",3);
                         break;
                 }
-
-                    //MessageBox.Show("Updates found", "Searching", MessageBoxButton.OK, MessageBoxImage.Information);
-                    
-             
-  
-
-                    
 
                     executeUpdateProcedure = true;
                     if (executeUpdateProcedure)
@@ -286,12 +292,12 @@ namespace wcommsixwrap
                                 myLogWriter.LogWrite("Mandatory updates need to be installed and will now be enforced.");
                                 UpdateHandlerWindow updateHandlerWindow = new UpdateHandlerWindow(packageManager, AppInstallerUri, caption, message, captionFailRequired, messageFailRequired);
                                 myLogWriter.LogWrite("Window has been initialized.");
-                                updateHandlerWindow.ShowDialog();
-                                myLogWriter.LogWrite("InstallUpdate has finished execution.");
+                                 updateHandlerWindow.ShowDialog();
+
+
+                            myLogWriter.LogWrite("InstallUpdate has finished execution.");
                                 if (!updateHandlerWindow.failure)
                                 {
-
-
                                     myLogWriter.LogWrite("App has been scheduled for a restart.");
                                 }
                                 // await InstallUpdate(updates);
@@ -350,13 +356,13 @@ namespace wcommsixwrap
             myLogWriter.LogWrite("Status: " + installOperation.Status.ToString());
             //updateHandlerForm.ShowDialog();
 
-            myLogWriter.LogWrite("Showing Update Dialog");
+            
 
-            installOperation.AsTask().Wait();
+            
 
             var installResult = await installOperation;
             //updateHandlerForm.Close();
-            myLogWriter.LogWrite("Closed Update dialog");
+            myLogWriter.LogWrite("Finished update");
             //StorePackageUpdateResult downloadResult =
             //    await context.TrySilentDownloadAndInstallStorePackageUpdatesAsync(storePackageUpdates);
             bool success = true;
