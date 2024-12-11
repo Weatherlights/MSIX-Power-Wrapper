@@ -84,7 +84,7 @@ namespace wcommsixwrap
                             break;
                         case "Target":
                             reader.Read();
-                            variableValue = reader.Value;
+                            variableTarget = reader.Value;
                             break;
                     }
 
