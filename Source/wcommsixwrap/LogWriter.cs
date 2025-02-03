@@ -12,7 +12,10 @@ namespace wcommsixwrap
 
         public LogWriter(string component) {
             this.component = component;
-            this.wrapperAppData = Program.ResolveVariables("[WRAPPER_APPDATA]");
+
+            string AppData = System.Environment.GetEnvironmentVariable("APPDATA");
+            string exeName = System.AppDomain.CurrentDomain.FriendlyName;
+            this.wrapperAppData = AppData + "\\weatherlights.com\\" + exeName;
         }
 
         public void LogWrite(string logMessage)

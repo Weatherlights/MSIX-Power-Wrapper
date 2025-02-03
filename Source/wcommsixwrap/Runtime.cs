@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,11 @@ namespace wcommsixwrap
         private string workingdirectory;
         private string arguments;
         private string windowStyle;
+        private bool waitForExit = true;
+        public bool WaitForExit {
+            get { return this.waitForExit; }
+        }
+
         private string argsselector = null;
         private LogWriter myLogWriter;
 
@@ -49,6 +55,11 @@ namespace wcommsixwrap
                             reader.Read();
                             arguments = reader.Value;
                             break;
+                        case "WaitForExit":
+                            reader.Read();
+                            if (reader.Value == "false" || reader.Value == "0")
+                                waitForExit = false;
+                            break;
                         case "WindowStyle":
                             reader.Read();
                             windowStyle = reader.Value;
@@ -64,6 +75,7 @@ namespace wcommsixwrap
         {
             return Program.ResolveVariables(filename);
         }
+
 
         public string getWorkingDirectory()
         {
@@ -111,10 +123,10 @@ namespace wcommsixwrap
         public void Execute()
         {
             myLogWriter.LogWrite("Trying to match ArgsSelector " + argsselector + " on commandline arguments" + Program.getCommandLineArgument());
-            if ( this.TestArgsSelector() )
+            if (this.TestArgsSelector())
                 using (Process myProcess = new Process())
                 {
-                    myLogWriter.LogWrite("TestArgsSelector() matched") ;
+                    myLogWriter.LogWrite("TestArgsSelector() matched");
                     myProcess.StartInfo.FileName = this.getFilename();
                     myLogWriter.LogWrite("FileName will be " + myProcess.StartInfo.FileName);
                     myProcess.StartInfo.Arguments = this.getArguments();
@@ -125,9 +137,15 @@ namespace wcommsixwrap
                     myLogWriter.LogWrite("WorkingDirectory will be " + myProcess.StartInfo.WorkingDirectory);
                     myProcess.Start();
                     myLogWriter.LogWrite("Process has started");
-                    myProcess.WaitForExit();
-                   
-                    myLogWriter.LogWrite("Process has exited");
+
+                    if (this.waitForExit) {
+                        myLogWriter.LogWrite("Waiting until process exits");
+                        myProcess.WaitForExit();
+                        myLogWriter.LogWrite("Process has exited");
+                    } else
+                    {
+                        myLogWriter.LogWrite("Skip waiting for process to exit");
+                    }         
                 }
             else
                 myLogWriter.LogWrite("ArgsSelector did not match any configuration.");

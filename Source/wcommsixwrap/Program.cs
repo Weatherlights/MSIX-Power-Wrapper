@@ -24,18 +24,18 @@ namespace wcommsixwrap
         {
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
-           
-                
+
+
             string location = System.Reflection.Assembly.GetEntryAssembly().Location;
             string configlocation = location + ".wrunconfig";
             string wrapperAppData = ResolveVariables("[WRAPPER_APPDATA]");
 
             CreateDirectoryRecursively(wrapperAppData);
 
- //           ConfigurationReader configReader = new ConfigurationReader();
- //           bool test = configReader.validateSignature("C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\wcommsixconfig.cat");
+            //           ConfigurationReader configReader = new ConfigurationReader();
+            //           bool test = configReader.validateSignature("C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\wcommsixconfig.cat");
 
- //           bool test2 = configReader.validateFileAgainstHash("C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\wcommsixconfig.cat", "C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\Winget-AutoUpdate-x64.exe.wrunconfig");
+            //           bool test2 = configReader.validateFileAgainstHash("C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\wcommsixconfig.cat", "C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\Winget-AutoUpdate-x64.exe.wrunconfig");
 
             LogWriter myLogWriter = new LogWriter("Main");
             myLogWriter.LogWrite("MSIX Powerwrapper started.");
@@ -56,15 +56,15 @@ namespace wcommsixwrap
             LiteWarning myLiteWarning = null;
             UpdateHandler myUpdateHandler = null;
             AppInstallerUpdateHandler myAppInstallerUpdateHandler = null;
-          PrivacyPolicy myPrivacyPolicy = null;
+            PrivacyPolicy myPrivacyPolicy = null;
 
             myLogWriter.LogWrite("Initialized objects");
 
             using (XmlReader reader = XmlReader.Create(configlocation)) {
                 while (reader.Read())
-                if (reader.IsStartElement())
-                {
-                    switch ( reader.Name )
+                    if (reader.IsStartElement())
+                    {
+                        switch (reader.Name)
                         {
 
                             case "Process":
@@ -106,7 +106,7 @@ namespace wcommsixwrap
                             case "PrivacyPolicy":
                                 myPrivacyPolicy = new PrivacyPolicy();
                                 myPrivacyPolicy.processXml(reader);
-                             break;
+                                break;
                             case "SymbolicLink":
                                 mySymbolicLinks.Add(new SymbolicLink(reader));
                                 break;
@@ -117,10 +117,10 @@ namespace wcommsixwrap
                                 myCertificateInstallers.Add(new CertificateInstall(reader));
                                 break;
                         }
-                }
+                    }
 
 
-             }
+            }
 
             myLogWriter.LogWrite("Finished loading configuration");
 
@@ -135,8 +135,8 @@ namespace wcommsixwrap
 
             if (myUpdateHandler != null) {
                 myLogWriter.LogWrite("Executing myUpdateHandler.Execute();");
-                
-               myUpdateHandler.Execute();
+
+                myUpdateHandler.Execute();
                 if (myUpdateHandler.hasMandatoryUpdates && myUpdateHandler.WaitForUpdateSearchToFinish)
                 {
                     myLogWriter.LogWrite("Will exit the application to finish the installation of updates.");
@@ -180,7 +180,7 @@ namespace wcommsixwrap
                 myLogWriter.LogWrite("Removing unwanted File " + myUnwantedFile.getFilePath());
             }
 
-            foreach ( VirtualFile myFile in myFiles)
+            foreach (VirtualFile myFile in myFiles)
             {
                 myFile.Execute();
                 myLogWriter.LogWrite("Copying " + myFile.getFile() + " to " + myFile.getTarget());
@@ -202,15 +202,21 @@ namespace wcommsixwrap
                 myLogWriter.LogWrite("Copying " + myRougeConfig.getFilePath() + " to " + myRougeConfig.getAppDataFilePath());
             }
 
-            if ( myLiteWarning != null ) myLiteWarning.Execute();
+            if (myLiteWarning != null) myLiteWarning.Execute();
 
             foreach (CertificateInstall myCertificateInstall in myCertificateInstallers)
             {
                 myCertificateInstall.Execute();
             }
-            foreach ( Runtime myRuntime in myRuntimes ) {
+
+            bool NoAppWaits = true;
+            foreach (Runtime myRuntime in myRuntimes) {
                 myLogWriter.LogWrite("Executing myRuntime.Execute();");
+
                 myRuntime.Execute();
+
+                if (myRuntime.WaitForExit)
+                    NoAppWaits = false;
             }
 
             foreach (ServiceHandler myServiceHandler in myServiceHandlers)
@@ -219,26 +225,29 @@ namespace wcommsixwrap
                 myServiceHandler.Execute();
             }
 
-            foreach (RougeConfig myRougeConfig in myRougeConfigs)
-            {
-                myRougeConfig.CleanUp();
-                myLogWriter.LogWrite("Copying " + myRougeConfig.getAppDataFilePath() + " to " + myRougeConfig.getFilePath());
-            }
+            if (NoAppWaits == false) {
+                myLogWriter.LogWrite("Skipping post run tasks since no app waits for exit.");
+                foreach (RougeConfig myRougeConfig in myRougeConfigs)
+                {
+                    myRougeConfig.CleanUp();
+                    myLogWriter.LogWrite("Copying " + myRougeConfig.getAppDataFilePath() + " to " + myRougeConfig.getFilePath());
+                }
 
-            if (myUpdateHandler != null)
-            {
-                myLogWriter.LogWrite("Executing myUpdateHandler.Execute();");
+                if (myUpdateHandler != null)
+                {
+                    myLogWriter.LogWrite("Executing myUpdateHandler.Execute();");
 
-                myUpdateHandler.Execute();
+                    myUpdateHandler.Execute();
 
-            }
+                }
 
-            if (myAppInstallerUpdateHandler != null)
-            {
-                myLogWriter.LogWrite("Executing myUpdateHandler.Execute();");
+                if (myAppInstallerUpdateHandler != null)
+                {
+                    myLogWriter.LogWrite("Executing myUpdateHandler.Execute();");
 
-                myAppInstallerUpdateHandler.Execute();
+                    myAppInstallerUpdateHandler.Execute();
 
+                }
             }
             myLogWriter.LogWrite("Exiting wrapper.");
         }
@@ -410,6 +419,8 @@ namespace wcommsixwrap
 
         static string getResolvedVariable(string variable)
         {
+            LogWriter myLogWriter = new LogWriter("getResolvedVariable");
+            myLogWriter.LogWrite("Resolving " + variable + " to ");
             Console.Write("Resolving " + variable + " to ");
             string[] parameters = prepareParameters(variable);
             string value = "";
@@ -487,6 +498,8 @@ namespace wcommsixwrap
                     break;
 
             }
+
+            myLogWriter.LogWrite(value);
             Console.WriteLine(value);
             return value;
 
