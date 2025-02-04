@@ -16,7 +16,6 @@ namespace wcommsixwrap
 
         public RougeConfig()
         {
-
             FilePath = "";
         }
 
@@ -24,7 +23,6 @@ namespace wcommsixwrap
         {
             FilePath = "";
             this.processXml(reader);
-
         }
 
         public void processXml(XmlReader reader)
@@ -43,7 +41,6 @@ namespace wcommsixwrap
                             AppDataFilePath = Program.ResolveVariables("[WRAPPER_APPDATA]") + fileName;
                             break;
                     }
-
                 }
             }
         }
@@ -69,7 +66,7 @@ namespace wcommsixwrap
             }
             catch (System.IO.IOException e)
             {
-
+                // Do nothing
             }
         }
 
@@ -91,7 +88,7 @@ namespace wcommsixwrap
             }
             catch (System.IO.IOException e)
             {
-
+                // Do nothing
             }
         }
 

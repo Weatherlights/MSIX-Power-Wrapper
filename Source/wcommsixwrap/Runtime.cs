@@ -145,7 +145,7 @@ namespace wcommsixwrap
                     } else
                     {
                         myLogWriter.LogWrite("Skip waiting for process to exit");
-                    }         
+                    }
                 }
             else
                 myLogWriter.LogWrite("ArgsSelector did not match any configuration.");
