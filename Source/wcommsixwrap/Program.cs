@@ -226,7 +226,6 @@ namespace wcommsixwrap
             }
 
             if (NoAppWaits == false) {
-                myLogWriter.LogWrite("Skipping post run tasks since no app waits for exit.");
                 foreach (RougeConfig myRougeConfig in myRougeConfigs)
                 {
                     myRougeConfig.CleanUp();
@@ -248,6 +247,9 @@ namespace wcommsixwrap
                     myAppInstallerUpdateHandler.Execute();
 
                 }
+            } else
+            {
+                myLogWriter.LogWrite("Skipping post run tasks since no app waits for exit.");
             }
             myLogWriter.LogWrite("Exiting wrapper.");
         }
