@@ -10,10 +10,14 @@ namespace wcommsixwrap
         private string attribute;
         private string value;
         private string type;
+        private LogWriter myLogWriter;
+
+        public static string Element = "RegistryKey";
 
         public RegistryEntry(XmlReader reader)
         {
             this.processXml(reader);
+            this.myLogWriter = new LogWriter(Element);
         }
 
         public void processXml(XmlReader reader)
@@ -109,8 +113,12 @@ namespace wcommsixwrap
                 else if (node == "MACHINE")
                     mkey = Registry.LocalMachine.CreateSubKey(key);
             }
-            if ( mkey.GetValue(this.getAttribute()) == null )
+            if (mkey.GetValue(this.getAttribute()) == null)
+            {
+                this.myLogWriter.LogWrite("Setting registry attribute " + node + ":/ "+ this.key + "/" + this.getAttribute() + " to " + this.getValue());
                 mkey.SetValue(this.getAttribute(), this.getValue(), this.getType());
+                
+            }
 
             mkey.Close();
         }
