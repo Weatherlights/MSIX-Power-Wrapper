@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using DWORD = System.UInt32;
 using BOOL = System.UInt32;
-
+// Original code from https://github.com/woanware/win-catalog-dotnet
 namespace wcommsixwrap
 {
     /// <summary>

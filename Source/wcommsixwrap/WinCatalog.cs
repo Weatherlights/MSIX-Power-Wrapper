@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.Pkcs;
 using System.Security.Cryptography.X509Certificates;
 using DWORD = System.UInt32;
-
+// modified code of https://github.com/woanware/win-catalog-dotnet
 namespace wcommsixwrap
 {
     class WinCatalog
