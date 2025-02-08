@@ -60,6 +60,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -131,12 +132,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppInstallerUpdateHandler.cs" />
+    <Compile Include="WinCatalog.cs" />
     <Compile Include="CertificateInstall.cs" />
     <Compile Include="Class1.cs" />
     <None Include="ConfigurationReader.cs.old" />
     <Compile Include="EnvironmentVariable.cs" />
     <Compile Include="LiteWarning1.cs" />
     <Compile Include="LogWriter.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="PrivacyPolicy.cs" />
     <Compile Include="PrivacyPolicyForm.cs">
       <SubType>Form</SubType>
@@ -197,6 +200,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Windows.SDK.Contracts">
       <Version>10.0.22000.196</Version>
+    </PackageReference>
+    <PackageReference Include="System.Security.Cryptography.Pkcs">
+      <Version>9.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

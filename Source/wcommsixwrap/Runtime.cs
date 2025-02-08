@@ -16,6 +16,7 @@ namespace wcommsixwrap
         private string arguments;
         private string windowStyle;
         private bool waitForExit = true;
+        private bool useShellExecute = true;
         public bool WaitForExit {
             get { return this.waitForExit; }
         }
@@ -59,6 +60,11 @@ namespace wcommsixwrap
                             reader.Read();
                             if (reader.Value == "false" || reader.Value == "0")
                                 waitForExit = false;
+                            break;
+                        case "UseShellExecute":
+                            reader.Read();
+                            if (reader.Value == "false" || reader.Value == "0")
+                                useShellExecute = false;
                             break;
                         case "WindowStyle":
                             reader.Read();
@@ -135,6 +141,8 @@ namespace wcommsixwrap
                     myLogWriter.LogWrite("WindowStyle will be " + myProcess.StartInfo.WindowStyle);
                     myProcess.StartInfo.WorkingDirectory = this.getWorkingDirectory();
                     myLogWriter.LogWrite("WorkingDirectory will be " + myProcess.StartInfo.WorkingDirectory);
+                    myProcess.StartInfo.UseShellExecute = useShellExecute;
+                    myLogWriter.LogWrite("UseShellExecute will be " + useShellExecute);
                     myProcess.Start();
                     myLogWriter.LogWrite("Process has started");
 

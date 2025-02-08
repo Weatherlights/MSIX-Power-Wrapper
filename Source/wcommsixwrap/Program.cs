@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Xml;
+using wincatalogdotnet;
+
 //using Windows.ApplicationModel;
 
 namespace wcommsixwrap
@@ -25,22 +27,47 @@ namespace wcommsixwrap
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
 
-
+            bool testSignature = true;
             string location = System.Reflection.Assembly.GetEntryAssembly().Location;
             string configlocation = location + ".wrunconfig";
+            string signaturelocation = location + ".cat";
             string wrapperAppData = ResolveVariables("[WRAPPER_APPDATA]");
 
             CreateDirectoryRecursively(wrapperAppData);
+
+            LogWriter myLogWriter = new LogWriter("Main");
+            myLogWriter.LogWrite("MSIX Power-Wrapper started.");
+
+            myLogWriter.LogWrite("Configuration location is " + configlocation);
+
+            if ( testSignature )
+            {
+                myLogWriter.LogWrite("Validating catalog signature");
+                WinCatalog catalog = new WinCatalog(signaturelocation);
+
+                bool isValid = catalog.IsSignatureValid();
+                bool IsFileInCatalog = catalog.IsFileInCatalog(configlocation);
+
+                if (!isValid)
+                {
+                    myLogWriter.LogWrite("Signature of the catalog file is not valid", 3);
+                    throw new Exception("Signature of the catalog file is not valid");
+                }
+                if (!IsFileInCatalog)
+                {
+                    myLogWriter.LogWrite("Filehash not found in catalog", 3);
+                    throw new Exception("Filehash not found in catalog");
+                }
+                myLogWriter.LogWrite("Signature successfully validated", 1);
+
+            }
 
             //           ConfigurationReader configReader = new ConfigurationReader();
             //           bool test = configReader.validateSignature("C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\wcommsixconfig.cat");
 
             //           bool test2 = configReader.validateFileAgainstHash("C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\wcommsixconfig.cat", "C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\Winget-AutoUpdate-x64.exe.wrunconfig");
 
-            LogWriter myLogWriter = new LogWriter("Main");
-            myLogWriter.LogWrite("MSIX Powerwrapper started.");
 
-            myLogWriter.LogWrite("Configuration location is " + configlocation);
 
             List<VirtualFile> myFiles = new List<VirtualFile>();
             List<VirtualFolder> myVirtualFolders = new List<VirtualFolder>();
@@ -421,9 +448,9 @@ namespace wcommsixwrap
 
         static string getResolvedVariable(string variable)
         {
-            LogWriter myLogWriter = new LogWriter("getResolvedVariable");
-            myLogWriter.LogWrite("Resolving " + variable + " to ");
-            Console.Write("Resolving " + variable + " to ");
+//            LogWriter myLogWriter = new LogWriter("getResolvedVariable");
+//            myLogWriter.LogWrite("Resolving " + variable + " to ");
+//            Console.Write("Resolving " + variable + " to ");
             string[] parameters = prepareParameters(variable);
             string value = "";
            /* if ( variable.Contains("|") )
@@ -501,8 +528,8 @@ namespace wcommsixwrap
 
             }
 
-            myLogWriter.LogWrite(value);
-            Console.WriteLine(value);
+//            myLogWriter.LogWrite(value);
+//            Console.WriteLine(value);
             return value;
 
         }
