@@ -62,12 +62,6 @@ namespace wcommsixwrap
 
             }
 
-            //           ConfigurationReader configReader = new ConfigurationReader();
-            //           bool test = configReader.validateSignature("C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\wcommsixconfig.cat");
-
-            //           bool test2 = configReader.validateFileAgainstHash("C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\wcommsixconfig.cat", "C:\\Users\\hauke\\GitHub\\Winget-AutoUpdate-Intune\\WinGet-AutoUpdate-Configurator\\Winget-AutoUpdate-x64.exe.wrunconfig");
-
-
 
             List<VirtualFile> myFiles = new List<VirtualFile>();
             List<VirtualFolder> myVirtualFolders = new List<VirtualFolder>();
@@ -80,6 +74,7 @@ namespace wcommsixwrap
             List<ServiceHandler> myServiceHandlers = new List<ServiceHandler>();
             List<CertificateInstall> myCertificateInstallers = new List<CertificateInstall>();
             List<EnvironmentVariable> myEnvironmentVariables = new List<EnvironmentVariable>();
+            List<RoamingProfile> myRoamingProfiles = new List<RoamingProfile>();
             LiteWarning myLiteWarning = null;
             UpdateHandler myUpdateHandler = null;
             AppInstallerUpdateHandler myAppInstallerUpdateHandler = null;
@@ -139,6 +134,9 @@ namespace wcommsixwrap
                                 break;
                             case "EnvironmentVariable":
                                 myEnvironmentVariables.Add(new EnvironmentVariable(reader));
+                                break;
+                            case "RoamingProfile":
+                                myRoamingProfiles.Add(new RoamingProfile(reader));
                                 break;
                             case "Certificate":
                                 myCertificateInstallers.Add(new CertificateInstall(reader));
@@ -229,6 +227,11 @@ namespace wcommsixwrap
                 myLogWriter.LogWrite("Copying " + myRougeConfig.getFilePath() + " to " + myRougeConfig.getAppDataFilePath());
             }
 
+            foreach (RoamingProfile myRoamingProfile in myRoamingProfiles)
+            {
+                myRoamingProfile.Execute();
+            }
+
             if (myLiteWarning != null) myLiteWarning.Execute();
 
             foreach (CertificateInstall myCertificateInstall in myCertificateInstallers)
@@ -253,6 +256,11 @@ namespace wcommsixwrap
             }
 
             if (NoAppWaits == false) {
+                foreach (RoamingProfile myRoamingProfile in myRoamingProfiles)
+                {
+                    myRoamingProfile.CleanUp();
+                }
+
                 foreach (RougeConfig myRougeConfig in myRougeConfigs)
                 {
                     myRougeConfig.CleanUp();
