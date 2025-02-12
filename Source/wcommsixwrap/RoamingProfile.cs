@@ -11,7 +11,6 @@ namespace wcommsixwrap
         private string _remoteStoragePath;
         private string _pathThatNeedsToExist;
         private string _enabled;
-        private bool fileExisted = false;
         private LogWriter LogWriter = new LogWriter(Element);
 
         private DateTime AppStartTime;
